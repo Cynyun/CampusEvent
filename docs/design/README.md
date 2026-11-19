@@ -16,7 +16,7 @@
 | 03-sequence-direct-registration.md | 直接报名成功主流程与失败说明 | 验证直接报名、容量、通知的协作 |
 | 04-sequence-review-registration.md | 审核型报名成功主流程与失败说明 | 验证待审核不占名额、满员仍可申请 |
 | 05-sequence-approval.md | 批准成功主流程；拒绝分支、满员失败 | 验证批准复查容量、状态防重、通知 |
-| 00-design-review.md | 22 项检查表、未决问题、评审意见与签字栏 | 编码前的评审门禁 |
+| 00-design-review.md | 22 项检查表、决策记录、评审意见与签字栏 | 编码前的评审门禁 |
 | diagrams/CampusEvent-design.drawio | 5 页 draw.io 源文件 | 需要改图时编辑此文件 |
 | diagrams/use-case.drawio.svg | 用例图 SVG | 文档展示/打印 |
 | diagrams/class-diagram.drawio.svg | 类图 SVG | 文档展示/打印 |
@@ -31,7 +31,7 @@
 3. **03-sequence-direct-registration.md**：跟一遍直接报名的成功路径和失败分支。
 4. **04-sequence-review-registration.md**：确认待审核不占名额。
 5. **05-sequence-approval.md**：确认批准时复查容量、拒绝不检查容量。
-6. **00-design-review.md**：拿检查表逐项打勾，填写未决问题和签名。
+6. **00-design-review.md**：拿检查表逐项打勾，核对决策记录并签名。
 7. **diagrams/CampusEvent-design.drawio**：需要放大细节或改图时打开；SVG 只用于展示。
 
 ## 3. 需求到设计的追踪
@@ -81,14 +81,11 @@
 - 类图保持语言中立：不写 Java 注解、包名、框架类型；这些留到实现阶段。
 - 时序图只画协作与消息顺序，不画具体 SQL；持久化细节放在实现和测试里。
 
-## 6. 未决问题
+## 6. 已决策与剩余问题
 
-编码前必须关闭的两项：
-
-- **U1 删除有报名的活动**：拒绝删除，还是软删除并保留历史？见 00-design-review.md 第 3 节。
-- **U3 名额并发控制**：事务内行锁，还是 version 乐观锁？见同一节。
-
-另有 U2（通知极端丢事件）、U4（活动开始后能否取消）、U5（管理员能否审批自己创建的活动），均已在评审表记录。未关闭前不开始实现。
+- **U1 删除有报名的活动**：已关闭，选 B 软删除。Activity 增加 deletedAt；只置删除时间，不物理删除；学生列表与报名入口过滤已删除活动，历史报名与通知保留。落地约束见 00-design-review.md 第 3.1 节。
+- **U3 名额并发控制**：已关闭，选 A 事务内行锁。报名与审批在事务开始时对 Activity 行执行 SELECT ... FOR UPDATE，再统计已通过人数；不做乐观锁重试。落地约束见 00-design-review.md 第 3.2 节。
+- **U2（通知极端丢事件）、U4（活动开始后能否取消）、U5（管理员能否审批自己创建的活动）**：已在评审表记录，不阻塞编码，按 00-design-review.md 第 3 节默认方案执行。
 
 ## 7. 范围边界
 
