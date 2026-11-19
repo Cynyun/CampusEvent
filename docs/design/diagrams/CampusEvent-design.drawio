@@ -1,0 +1,488 @@
+<mxfile host="localhost" pages="5">
+  <diagram id="ajm0j7ne-7248" name="01 用例图">
+    <mxGraphModel dx="1215" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="swimlane;startSize=30;whiteSpace=wrap;html=1;" value="CampusEvent 校园活动报名与管理系统" vertex="1">
+          <mxGeometry height="556" width="510" x="224" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="创建活动" vertex="1">
+          <mxGeometry height="50" width="160" x="260" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="编辑/删除活动" vertex="1">
+          <mxGeometry height="50" width="160" x="260" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="浏览与筛选活动" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="直接报名" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="申请审核型报名" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="取消报名" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="审批报名" vertex="1">
+          <mxGeometry height="50" width="160" x="260" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="查看站内通知" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="2" style="ellipse;whiteSpace=wrap;html=1;" value="查看活动统计" vertex="1">
+          <mxGeometry height="50" width="160" x="260" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="12" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Student 学生" vertex="1">
+          <mxGeometry height="60" width="30" x="70" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="13" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Admin 管理员" vertex="1">
+          <mxGeometry height="60" width="30" x="690" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="14" edge="1" parent="1" source="12" style="endArrow=none;html=1;" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" edge="1" parent="1" source="12" style="endArrow=none;html=1;" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" edge="1" parent="1" source="12" style="endArrow=none;html=1;" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="17" edge="1" parent="1" source="12" style="endArrow=none;html=1;" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="18" edge="1" parent="1" source="12" style="endArrow=none;html=1;" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="19" edge="1" parent="1" source="13" style="endArrow=none;html=1;" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="20" edge="1" parent="1" source="13" style="endArrow=none;html=1;" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="21" edge="1" parent="1" source="13" style="endArrow=none;html=1;" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" edge="1" parent="1" source="13" style="endArrow=none;html=1;" target="11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="455swurm-oo79" name="02 类图">
+    <mxGraphModel dx="1282" dy="611" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Student&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- studentId: String&lt;br&gt;- name: String" vertex="1">
+          <mxGeometry height="75" width="170" x="20" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Activity&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- activityId: String&lt;br&gt;- title: String&lt;br&gt;- category: String&lt;br&gt;- startAt: LocalDateTime&lt;br&gt;- location: String&lt;br&gt;- capacity: int&lt;br&gt;- policyType: PolicyType&lt;br&gt;────&lt;br&gt;+ isOpen(now): boolean&lt;br&gt;+ hasCapacity(count): boolean" vertex="1">
+          <mxGeometry height="150" width="170" x="210" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Registration&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- registrationId: String&lt;br&gt;- status: RegistrationStatus&lt;br&gt;- createdAt: LocalDateTime&lt;br&gt;- updatedAt: LocalDateTime&lt;br&gt;────&lt;br&gt;+ approve()&lt;br&gt;+ reject()&lt;br&gt;+ cancel()&lt;br&gt;+ isActive(): boolean" vertex="1">
+          <mxGeometry height="150" width="170" x="400" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Message&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- messageId: String&lt;br&gt;- studentId: String&lt;br&gt;- activityId: String&lt;br&gt;- content: String&lt;br&gt;- createdAt: LocalDateTime&lt;br&gt;- isRead: boolean&lt;br&gt;────&lt;br&gt;+ markRead()" vertex="1">
+          <mxGeometry height="110" width="180" x="590" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Admin&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- adminId: String&lt;br&gt;- name: String" vertex="1">
+          <mxGeometry height="60" width="170" x="20" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;PolicyType&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«enumeration»&lt;br&gt;DIRECT&lt;br&gt;APPROVAL" vertex="1">
+          <mxGeometry height="70" width="170" x="210" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationStatus&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«enumeration»&lt;br&gt;PENDING&lt;br&gt;APPROVED&lt;br&gt;REJECTED&lt;br&gt;CANCELLED" vertex="1">
+          <mxGeometry height="100" width="170" x="400" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationPolicy&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«interface»&lt;br&gt;────&lt;br&gt;+ decide(a, count): Status" vertex="1">
+          <mxGeometry height="80" width="180" x="590" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;InAppNotificationObserver&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ onEvent(event): void" vertex="1">
+          <mxGeometry height="60" width="170" x="210" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;DirectRegistrationPolicy&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ decide(a, count): Status" vertex="1">
+          <mxGeometry height="70" width="170" x="210" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="12" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;ApprovalRegistrationPolicy&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ decide(a, count): Status" vertex="1">
+          <mxGeometry height="80" width="170" x="400" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="13" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationPolicyFactory&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ create(type): Policy" vertex="1">
+          <mxGeometry height="70" width="180" x="590" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="14" parent="1" style="rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationService&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ register(studentId, activityId)&lt;br&gt;+ cancel(studentId, registrationId)&lt;br&gt;+ approve(adminId, registrationId)&lt;br&gt;+ reject(adminId, registrationId)" vertex="1">
+          <mxGeometry height="120" width="170" x="20" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="15" parent="1" style="rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationEvent&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- eventId: String&lt;br&gt;- type: RegistrationEventType&lt;br&gt;- registrationId: String&lt;br&gt;- studentId: String&lt;br&gt;- activityId: String&lt;br&gt;- occurredAt: LocalDateTime" vertex="1">
+          <mxGeometry height="110" width="170" x="20" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="16" parent="1" style="rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationEventType&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«enumeration»&lt;br&gt;SUBMITTED&lt;br&gt;APPROVED&lt;br&gt;REJECTED&lt;br&gt;CANCELLED" vertex="1">
+          <mxGeometry height="80" width="170" x="210" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="17" parent="1" style="rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationEventPublisher&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ publish(event): void&lt;br&gt;+ register(observer): void&lt;br&gt;+ unregister(observer): void" vertex="1">
+          <mxGeometry height="80" width="170" x="400" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="18" parent="1" style="rounded=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;NotificationObserver&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«interface»&lt;br&gt;────&lt;br&gt;+ onEvent(event): void" vertex="1">
+          <mxGeometry height="60" width="180" x="590" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="30" edge="1" parent="1" source="2" style="edgeStyle=orthogonalEdgeStyle;endArrow=none;fontSize=8;exitX=1;exitY=0.5;entryX=0;entryY=0.4;html=1;" target="4" value="owns">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="58" />
+              <mxPoint x="200" y="10" />
+              <mxPoint x="390" y="10" />
+              <mxPoint x="390" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="31" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;endArrow=none;fontSize=8;exitX=1;exitY=0.45;entryX=0;entryY=0.7;html=1;" target="4" value="receives">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="87" />
+              <mxPoint x="390" y="125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="32" edge="1" parent="1" source="4" style="edgeStyle=orthogonalEdgeStyle;endArrow=none;fontSize=8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;;html=1;" target="8" value="has">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;endArrow=none;fontSize=8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;;html=1;" target="7" value="uses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="34" edge="1" parent="1" source="11" style="endArrow=block;dashed=1;endFill=0;fontSize=8;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;entryX=0;entryY=0.7;" target="9" value="impl">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="405" />
+              <mxPoint x="580" y="246" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="35" edge="1" parent="1" source="12" style="endArrow=block;dashed=1;endFill=0;fontSize=8;html=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" target="9" value="impl">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="575" y="350" />
+              <mxPoint x="575" y="214" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="36" edge="1" parent="1" source="13" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;entryX=0.5;entryY=1;html=1;" target="9" value="creates">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37" edge="1" parent="1" source="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=1;exitY=0.25;entryX=0.17;entryY=0;html=1;" target="9" value="delegates">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="330" />
+              <mxPoint x="200" y="180" />
+              <mxPoint x="620" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="38" edge="1" parent="1" source="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=1;exitY=0.75;entryX=0;entryY=0.5;html=1;" target="17" value="publishes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="390" />
+              <mxPoint x="200" y="455" />
+              <mxPoint x="400" y="455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="39" edge="1" parent="1" source="17" style="edgeStyle=orthogonalEdgeStyle;fontSize=8;startArrow=diamond;startFill=1;endArrow=none;entryX=0;entryY=0.5;html=1;exitX=1;exitY=0.375;exitDx=0;exitDy=0;" target="18" value="notifies">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;dashed=1;endFill=0;fontSize=8;exitX=1;exitY=0.5;entryX=0;entryY=0.5;;html=1;" target="18" value="implements">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="320" />
+              <mxPoint x="390" y="400" />
+              <mxPoint x="575" y="400" />
+              <mxPoint x="575" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="41" edge="1" parent="1" source="10" style="endArrow=open;dashed=1;fontSize=8;html=1;labelBackgroundColor=default;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.16667;exitDx=0;exitDy=0;entryX=1;entryY=0.90909;entryDx=0;entryDy=0;" target="5" value="writes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="300" />
+              <mxPoint x="790" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="42" edge="1" parent="1" source="17" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=1;entryX=1;entryY=0.5;;html=1;" target="15" value="carries">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="485" y="580" />
+              <mxPoint x="190" y="580" />
+              <mxPoint x="190" y="505" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="43" edge="1" parent="1" source="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;labelBackgroundColor=#ffffff;exitX=1;exitY=0.95;entryX=1;entryY=0.5;html=1;" target="13" value="resolves">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="414" />
+              <mxPoint x="205" y="600" />
+              <mxPoint x="785" y="600" />
+              <mxPoint x="785" y="345" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="hb3a5aod-c08i" name="03 直接报名时序">
+    <mxGraphModel dx="1923" dy="917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Student" vertex="1">
+          <mxGeometry height="840" width="90" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="RegistrationService" vertex="1">
+          <mxGeometry height="840" width="90" x="120" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="ActivityRepo" vertex="1">
+          <mxGeometry height="840" width="90" x="220" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="RegistrationRepo" vertex="1">
+          <mxGeometry height="840" width="90" x="320" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Activity" vertex="1">
+          <mxGeometry height="840" width="90" x="420" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Policy" vertex="1">
+          <mxGeometry height="840" width="90" x="520" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="EventPublisher" vertex="1">
+          <mxGeometry height="840" width="90" x="620" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="InAppObserver" vertex="1">
+          <mxGeometry height="840" width="90" x="720" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="50" edge="1" parent="1" source="2" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=80;entryX=0.5;entryY=0;entryDy=80;html=1;" target="3" value="register(studentId, activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="51" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=120;entryX=0.5;entryY=0;entryDy=120;html=1;" target="4" value="findById(activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="52" edge="1" parent="1" source="4" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=160;entryX=0.5;entryY=0;entryDy=160;html=1;" target="3" value="activity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="53" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=200;entryX=0.5;entryY=0;entryDy=200;html=1;" target="6" value="isOpen(now)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="54" edge="1" parent="1" source="6" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=240;entryX=0.5;entryY=0;entryDy=240;html=1;" target="3" value="true">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="55" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=280;entryX=0.5;entryY=0;entryDy=280;html=1;" target="5" value="findActive(studentId, activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="56" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=320;entryX=0.5;entryY=0;entryDy=320;html=1;" target="3" value="none">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="57" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=360;entryX=0.5;entryY=0;entryDy=360;html=1;" target="5" value="countApproved(activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="58" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=400;entryX=0.5;entryY=0;entryDy=400;html=1;" target="3" value="approvedCount">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="59" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=440;entryX=0.5;entryY=0;entryDy=440;html=1;" target="6" value="hasCapacity(approvedCount)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="60" edge="1" parent="1" source="6" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=480;entryX=0.5;entryY=0;entryDy=480;html=1;" target="3" value="true">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="61" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=520;entryX=0.5;entryY=0;entryDy=520;html=1;" target="7" value="decide(activity, approvedCount)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="62" edge="1" parent="1" source="7" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=560;entryX=0.5;entryY=0;entryDy=560;html=1;" target="3" value="APPROVED">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="63" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=600;entryX=0.5;entryY=0;entryDy=600;html=1;" target="5" value="save(APPROVED)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="64" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=640;entryX=0.5;entryY=0;entryDy=640;html=1;" target="3" value="saved">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="65" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=680;entryX=0.5;entryY=0;entryDy=680;html=1;" target="8" value="publish(RegistrationApproved)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="66" edge="1" parent="1" source="8" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=720;entryX=0.5;entryY=0;entryDy=720;html=1;" target="9" value="onEvent(event)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="67" edge="1" parent="1" source="9" style="endArrow=block;fontSize=8;align=left;verticalAlign=middle;spacingLeft=4;exitX=0.5;exitY=0;exitDy=760;entryX=0.5;entryY=0;entryDy=780;html=1;" target="9" value="write Message">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="795" y="800" />
+              <mxPoint x="795" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="68" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=800;entryX=0.5;entryY=0;entryDy=800;html=1;" target="2" value="报名成功">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="说明：通知在报名事务提交后发布；通知失败只记录日志，不回滚报名。失败分支见 docs/design/03-sequence-direct-registration.md。" vertex="1">
+          <mxGeometry height="40" width="760" x="20" y="890" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="qa8f1wnd-cr3x" name="04 审核报名时序">
+    <mxGraphModel dx="1539" dy="733" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Student" vertex="1">
+          <mxGeometry height="680" width="90" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="RegistrationService" vertex="1">
+          <mxGeometry height="680" width="90" x="120" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="ActivityRepo" vertex="1">
+          <mxGeometry height="680" width="90" x="220" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="RegistrationRepo" vertex="1">
+          <mxGeometry height="680" width="90" x="320" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Activity" vertex="1">
+          <mxGeometry height="680" width="90" x="420" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Policy" vertex="1">
+          <mxGeometry height="680" width="90" x="520" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="EventPublisher" vertex="1">
+          <mxGeometry height="680" width="90" x="620" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="InAppObserver" vertex="1">
+          <mxGeometry height="680" width="90" x="720" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="100" edge="1" parent="1" source="2" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=80;entryX=0.5;entryY=0;entryDy=80;html=1;" target="3" value="apply(studentId, activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="101" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=120;entryX=0.5;entryY=0;entryDy=120;html=1;" target="4" value="findById(activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="102" edge="1" parent="1" source="4" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=160;entryX=0.5;entryY=0;entryDy=160;html=1;" target="3" value="activity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="103" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=200;entryX=0.5;entryY=0;entryDy=200;html=1;" target="6" value="isOpen(now)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="104" edge="1" parent="1" source="6" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=240;entryX=0.5;entryY=0;entryDy=240;html=1;" target="3" value="true">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="105" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=280;entryX=0.5;entryY=0;entryDy=280;html=1;" target="5" value="findActive(studentId, activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="106" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=320;entryX=0.5;entryY=0;entryDy=320;html=1;" target="3" value="none">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="107" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=360;entryX=0.5;entryY=0;entryDy=360;html=1;" target="7" value="decide(activity, approvedCount)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="108" edge="1" parent="1" source="7" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=400;entryX=0.5;entryY=0;entryDy=400;html=1;" target="3" value="PENDING">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="109" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=440;entryX=0.5;entryY=0;entryDy=440;html=1;" target="5" value="save(PENDING)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="110" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=480;entryX=0.5;entryY=0;entryDy=480;html=1;" target="3" value="saved">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="111" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=520;entryX=0.5;entryY=0;entryDy=520;html=1;" target="8" value="publish(RegistrationSubmitted)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="112" edge="1" parent="1" source="8" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=560;entryX=0.5;entryY=0;entryDy=560;html=1;" target="9" value="onEvent(event)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="113" edge="1" parent="1" source="9" style="endArrow=block;fontSize=8;align=left;verticalAlign=middle;spacingLeft=4;exitX=0.5;exitY=0;exitDy=600;entryX=0.5;entryY=0;entryDy=620;html=1;" target="9" value="write Message">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="795" y="640" />
+              <mxPoint x="795" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="114" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=640;entryX=0.5;entryY=0;entryDy=640;html=1;" target="2" value="申请成功，等待审核">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="190" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="说明：审核型报名提交时不扣名额，待审核不占容量；活动满员仍可提交待审核，审批时再检查容量。失败分支见 docs/design/04-sequence-review-registration.md。" vertex="1">
+          <mxGeometry height="40" width="760" x="20" y="730" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="8n0edx09-jmzg" name="05 审批时序">
+    <mxGraphModel dx="1443" dy="688" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Admin" vertex="1">
+          <mxGeometry height="600" width="100" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="RegistrationService" vertex="1">
+          <mxGeometry height="600" width="100" x="150" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="RegistrationRepo" vertex="1">
+          <mxGeometry height="600" width="100" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="Activity" vertex="1">
+          <mxGeometry height="600" width="100" x="410" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="EventPublisher" vertex="1">
+          <mxGeometry height="600" width="100" x="540" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;size=40;fontSize=8;whiteSpace=wrap;html=1;" value="InAppObserver" vertex="1">
+          <mxGeometry height="600" width="100" x="670" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="200" edge="1" parent="1" source="2" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=80;entryX=0.5;entryY=0;entryDy=80;html=1;" target="3" value="approve(registrationId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="201" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=120;entryX=0.5;entryY=0;entryDy=120;html=1;" target="4" value="findById(registrationId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="202" edge="1" parent="1" source="4" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=160;entryX=0.5;entryY=0;entryDy=160;html=1;" target="3" value="registration(PENDING)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="203" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=200;entryX=0.5;entryY=0;entryDy=200;html=1;" target="4" value="countApproved(activityId)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="204" edge="1" parent="1" source="4" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=240;entryX=0.5;entryY=0;entryDy=240;html=1;" target="3" value="approvedCount">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="205" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=280;entryX=0.5;entryY=0;entryDy=280;html=1;" target="5" value="hasCapacity(approvedCount)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="206" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=320;entryX=0.5;entryY=0;entryDy=320;html=1;" target="3" value="true">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="207" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=360;entryX=0.5;entryY=0;entryDy=360;html=1;" target="4" value="updateStatus(APPROVED)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="208" edge="1" parent="1" source="4" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=400;entryX=0.5;entryY=0;entryDy=400;html=1;" target="3" value="updated">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="209" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=440;entryX=0.5;entryY=0;entryDy=440;html=1;" target="6" value="publish(RegistrationApproved)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="210" edge="1" parent="1" source="6" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=480;entryX=0.5;entryY=0;entryDy=480;html=1;" target="7" value="onEvent(event)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="211" edge="1" parent="1" source="7" style="endArrow=block;fontSize=8;align=left;verticalAlign=middle;spacingLeft=4;exitX=0.5;exitY=0;exitDy=520;entryX=0.5;entryY=0;entryDy=540;html=1;" target="7" value="write Message">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="560" />
+              <mxPoint x="750" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="212" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=560;entryX=0.5;entryY=0;entryDy=560;html=1;" target="2" value="批准成功">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="290" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="说明：批准前必须重新确认状态为 PENDING 并复查容量；满员时批准失败、状态保持 PENDING。拒绝分支：updateStatus(REJECTED) → publish(Rejected) → 站内通知，不检查容量。" vertex="1">
+          <mxGeometry height="45" width="760" x="20" y="650" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
