@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Cynyun.campusevent.mapper.ActivityMapper">
+
+    <sql id="activityColumns">
+        a.id, a.title, a.category, a.start_at, a.location, a.capacity, a.policy_type,
+        a.created_at, a.updated_at, a.deleted_at,
+        (SELECT COUNT(*) FROM registration r
+         WHERE r.activity_id = a.id AND r.status = 'APPROVED') AS approved_count,
+        (SELECT COUNT(*) FROM registration r
+         WHERE r.activity_id = a.id AND r.status = 'PENDING') AS pending_count
+    </sql>
+
+    <select id="findActive" resultType="Activity">
+        SELECT <include refid="activityColumns"/>
+        FROM activity a
+        WHERE a.deleted_at IS NULL
+        <if test="keyword != null and keyword != ''">
+            AND a.title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="policyType != null">
+            AND a.policy_type = #{policyType}
+        </if>
+        <if test="category != null and category != ''">
+            AND a.category = #{category}
+        </if>
+        ORDER BY CASE WHEN a.start_at &gt;= NOW() THEN 0 ELSE 1 END, a.start_at ASC
+    </select>
+
+    <select id="findAllForAdmin" resultType="Activity">
+        SELECT <include refid="activityColumns"/>
+        FROM activity a
+        <where>
+            <if test="!includeDeleted">
+                a.deleted_at IS NULL
+            </if>
+        </where>
+        ORDER BY CASE WHEN a.start_at &gt;= NOW() THEN 0 ELSE 1 END, a.start_at ASC
+    </select>
+
+    <select id="findById" resultType="Activity">
+        SELECT <include refid="activityColumns"/>
+        FROM activity a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findByIdForUpdate" resultType="Activity">
+        SELECT id, title, category, start_at, location, capacity, policy_type,
+               created_at, updated_at, deleted_at
+        FROM activity
+        WHERE id = #{id}
+        FOR UPDATE
+    </select>
+
+    <select id="countApproved" resultType="int">
+        SELECT COUNT(*) FROM registration WHERE activity_id = #{activityId} AND status = 'APPROVED'
+    </select>
+
+    <select id="countPending" resultType="int">
+        SELECT COUNT(*) FROM registration WHERE activity_id = #{activityId} AND status = 'PENDING'
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO activity (title, category, start_at, location, capacity, policy_type, created_at, updated_at)
+        VALUES (#{title}, #{category}, #{startAt}, #{location}, #{capacity}, #{policyType}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="update">
+        UPDATE activity
+        SET title = #{title},
+            category = #{category},
+            start_at = #{startAt},
+            location = #{location},
+            capacity = #{capacity},
+            policy_type = #{policyType},
+            updated_at = #{updatedAt}
+        WHERE id = #{id} AND deleted_at IS NULL
+    </update>
+
+    <update id="softDelete">
+        UPDATE activity
+        SET deleted_at = #{updatedAt}, updated_at = #{updatedAt}
+        WHERE id = #{id} AND deleted_at IS NULL
+    </update>
+</mapper>

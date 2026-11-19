@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Cynyun.campusevent.mapper.RegistrationMapper">
+
+    <select id="findActiveByStudentAndActivity" resultType="Registration">
+        SELECT id, student_id, activity_id, status, created_at, updated_at
+        FROM registration
+        WHERE student_id = #{studentId}
+          AND activity_id = #{activityId}
+          AND status IN ('PENDING', 'APPROVED')
+        ORDER BY id DESC
+        LIMIT 1
+    </select>
+
+    <select id="findById" resultType="Registration">
+        SELECT id, student_id, activity_id, status, created_at, updated_at
+        FROM registration
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByIdForUpdate" resultType="Registration">
+        SELECT id, student_id, activity_id, status, created_at, updated_at
+        FROM registration
+        WHERE id = #{id}
+        FOR UPDATE
+    </select>
+
+    <select id="findByStudent" resultType="RegistrationView">
+        SELECT r.id, r.student_id, s.name AS student_name,
+               r.activity_id, a.title AS activity_title,
+               a.start_at AS activity_start_at, a.location AS activity_location,
+               a.policy_type, r.status, r.created_at, r.updated_at
+        FROM registration r
+        JOIN student s ON s.student_id = r.student_id
+        JOIN activity a ON a.id = r.activity_id
+        WHERE r.student_id = #{studentId}
+        ORDER BY r.created_at DESC, r.id DESC
+    </select>
+
+    <select id="findForAdmin" resultType="RegistrationView">
+        SELECT r.id, r.student_id, s.name AS student_name,
+               r.activity_id, a.title AS activity_title,
+               a.start_at AS activity_start_at, a.location AS activity_location,
+               a.policy_type, r.status, r.created_at, r.updated_at
+        FROM registration r
+        JOIN student s ON s.student_id = r.student_id
+        JOIN activity a ON a.id = r.activity_id
+        <where>
+            <if test="status != null">
+                r.status = #{status}
+            </if>
+            <if test="activityId != null">
+                AND r.activity_id = #{activityId}
+            </if>
+        </where>
+        ORDER BY FIELD(r.status, 'PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'), r.created_at DESC
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO registration (student_id, activity_id, status, created_at, updated_at)
+        VALUES (#{studentId}, #{activityId}, #{status}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE registration
+        SET status = #{status}, updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+</mapper>

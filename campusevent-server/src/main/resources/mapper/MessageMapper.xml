@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Cynyun.campusevent.mapper.MessageMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO message (student_id, activity_id, content, created_at, is_read)
+        VALUES (#{studentId}, #{activityId}, #{content}, #{createdAt}, #{isRead})
+    </insert>
+
+    <select id="findByStudent" resultType="Message">
+        SELECT id, student_id, activity_id, content, created_at, is_read
+        FROM message
+        WHERE student_id = #{studentId}
+        ORDER BY is_read ASC, created_at DESC, id DESC
+    </select>
+
+    <update id="markRead">
+        UPDATE message
+        SET is_read = 1
+        WHERE id = #{id} AND student_id = #{studentId}
+    </update>
+
+    <update id="markAllRead">
+        UPDATE message
+        SET is_read = 1
+        WHERE student_id = #{studentId} AND is_read = 0
+    </update>
+
+    <select id="countUnread" resultType="int">
+        SELECT COUNT(*) FROM message WHERE student_id = #{studentId} AND is_read = 0
+    </select>
+</mapper>

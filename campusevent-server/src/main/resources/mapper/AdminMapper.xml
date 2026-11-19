@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Cynyun.campusevent.mapper.AdminMapper">
+    <select id="findByAdminId" resultType="Admin">
+        SELECT admin_id, name, password_hash
+        FROM admin
+        WHERE admin_id = #{adminId}
+    </select>
+</mapper>
