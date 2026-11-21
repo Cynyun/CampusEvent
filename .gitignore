@@ -8,6 +8,9 @@ campusevent.db-*
 .runtime-test/
 .runtime-fresh/
 
+# Vibe Hosting credentials and private keys
+.vibehosting/
+
 # IDE / OS
 .idea/
 .DS_Store
