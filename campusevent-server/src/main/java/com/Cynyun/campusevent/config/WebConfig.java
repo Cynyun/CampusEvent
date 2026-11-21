@@ -29,7 +29,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+                // 本地开发用 Vite/静态端口；生产为 Vibe Hosting 子域名。
+                // 用 originPatterns 兼容固定公网域名和本地任意端口，避免同源 POST 被 CORS 误判为 403。
+                .allowedOriginPatterns(
+                        "http://localhost:*",
+                        "http://127.0.0.1:*",
+                        "https://cynyun-campus.thevibehosting.com",
+                        "https://*.thevibehosting.com"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
