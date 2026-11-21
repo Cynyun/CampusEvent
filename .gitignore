@@ -1,0 +1,14 @@
+# Local SQLite database (created on first run)
+campusevent-server/campusevent.db
+campusevent-server/campusevent.db-*
+campusevent.db
+campusevent.db-*
+
+# Local smoke-test runtime directory
+.runtime-test/
+.runtime-fresh/
+
+# IDE / OS
+.idea/
+.DS_Store
+Thumbs.db

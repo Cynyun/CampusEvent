@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${CAMPUSEVENT_MYSQL_URL:jdbc:mysql://localhost:3306/campusevent?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true}
+    username: ${CAMPUSEVENT_MYSQL_USER:root}
+    password: ${CAMPUSEVENT_MYSQL_PASSWORD:${MySql80Key:}}
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      connection-timeout: 30000
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-mysql.sql

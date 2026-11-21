@@ -1,0 +1,1 @@
+import{t as e}from"./http-uwT5_mG-.js";var t=()=>e.get(`/student/messages`),n=t=>e.post(`/student/messages/`+t+`/read`),r=()=>e.post(`/student/messages/read-all`),i=()=>e.get(`/student/messages/unread-count`);export{n as i,t as n,r,i as t};

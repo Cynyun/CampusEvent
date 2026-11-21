@@ -11,22 +11,14 @@ spring:
   application:
     name: campusevent-server
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/campusevent?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
-    username: root
-    password: "${MySql80Key:}"
-    hikari:
-      minimum-idle: 2
-      maximum-pool-size: 10
-      connection-timeout: 30000
+  # 默认 SQLite；需要 MySQL 时用 --spring.profiles.active=mysql 或环境变量 SPRING_PROFILES_ACTIVE=mysql
+  profiles:
+    default: sqlite
 
   sql:
     init:
       mode: always
       encoding: UTF-8
-      schema-locations: classpath:schema.sql
-      data-locations: classpath:data.sql
       continue-on-error: false
 
   jackson:
@@ -43,9 +35,9 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
   type-aliases-package: com.Cynyun.campusevent.entity
+  type-handlers-package: com.Cynyun.campusevent.config.mybatis
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
@@ -57,3 +49,7 @@ springdoc:
     path: /swagger-ui.html
 knife4j:
   enable: true
+
+app:
+  # 只在数据库为空且首次运行时写入演示活动/学生/报名；已有数据不会重复写入
+  seed-demo-data: ${CAMPUSEVENT_SEED_DEMO:true}

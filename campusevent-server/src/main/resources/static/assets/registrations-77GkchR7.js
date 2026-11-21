@@ -1,0 +1,1 @@
+import{t as e}from"./http-uwT5_mG-.js";var t=t=>e.post(`/student/activities/`+t+`/registrations`),n=()=>e.get(`/student/registrations`),r=t=>e.delete(`/student/registrations/`+t),i=t=>e.get(`/admin/registrations`,{params:t}),a=t=>e.post(`/admin/registrations/`+t+`/approve`),o=t=>e.post(`/admin/registrations/`+t+`/reject`);export{t as a,n as i,r as n,o,i as r,a as t};

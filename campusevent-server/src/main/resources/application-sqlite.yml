@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    # 默认数据库文件在启动目录下；可用 CAMPUSEVENT_DB_PATH 指向其他位置
+    url: jdbc:sqlite:${CAMPUSEVENT_DB_PATH:./campusevent.db}
+    username:
+    password:
+    hikari:
+      # SQLite 单文件写锁：连接池保持较小，避免并发写互相等待
+      minimum-idle: 1
+      maximum-pool-size: 1
+      connection-timeout: 30000
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-sqlite.sql

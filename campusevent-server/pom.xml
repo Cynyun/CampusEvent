@@ -29,6 +29,7 @@
         <knife4j.version>4.5.0</knife4j.version>
         <hutool.version>5.8.28</hutool.version>
         <jjwt.version>0.12.6</jjwt.version>
+        <sqlite-jdbc.version>3.46.1.0</sqlite-jdbc.version>
     </properties>
 
     <dependencies>
@@ -44,7 +45,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- ===== 3. MySQL 驱动 + JDBC 数据源 ===== -->
+        <!-- ===== 3. SQLite（默认）与 MySQL（可选）驱动 + JDBC 数据源 ===== -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite-jdbc.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Spring Boot 3 使用新坐标 com.mysql:mysql-connector-j，版本由父工程托管 -->
         <dependency>
             <groupId>com.mysql</groupId>

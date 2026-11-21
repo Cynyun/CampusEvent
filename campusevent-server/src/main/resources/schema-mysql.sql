@@ -54,3 +54,9 @@ CREATE TABLE IF NOT EXISTS message (
     CONSTRAINT fk_message_student FOREIGN KEY (student_id) REFERENCES student (student_id),
     CONSTRAINT fk_message_activity FOREIGN KEY (activity_id) REFERENCES activity (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS app_meta (
+    meta_key   VARCHAR(64)  NOT NULL,
+    meta_value VARCHAR(255) NOT NULL,
+    PRIMARY KEY (meta_key)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;

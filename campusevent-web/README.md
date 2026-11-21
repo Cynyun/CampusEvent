@@ -15,6 +15,8 @@ npm run dev
 
 Vite 已把 `/api` 代理到 `http://localhost:8080`，启动前端前需先启动 `campusevent-server`。
 
+如果要把前端作为 Spring Boot 的一部分运行，执行上级目录的 `scripts/build-all.ps1`，脚本会构建并把 `dist` 复制到 `campusevent-server/src/main/resources/static`。
+
 ## 脚本
 
 | 命令 | 说明 |

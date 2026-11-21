@@ -16,7 +16,7 @@
         FROM activity a
         WHERE a.deleted_at IS NULL
         <if test="keyword != null and keyword != ''">
-            AND a.title LIKE CONCAT('%', #{keyword}, '%')
+            AND a.title LIKE #{keyword}
         </if>
         <if test="policyType != null">
             AND a.policy_type = #{policyType}
@@ -24,7 +24,7 @@
         <if test="category != null and category != ''">
             AND a.category = #{category}
         </if>
-        ORDER BY CASE WHEN a.start_at &gt;= NOW() THEN 0 ELSE 1 END, a.start_at ASC
+        ORDER BY a.start_at ASC
     </select>
 
     <select id="findAllForAdmin" resultType="Activity">
@@ -35,7 +35,7 @@
                 a.deleted_at IS NULL
             </if>
         </where>
-        ORDER BY CASE WHEN a.start_at &gt;= NOW() THEN 0 ELSE 1 END, a.start_at ASC
+        ORDER BY a.start_at ASC
     </select>
 
     <select id="findById" resultType="Activity">
@@ -44,12 +44,19 @@
         WHERE a.id = #{id}
     </select>
 
-    <select id="findByIdForUpdate" resultType="Activity">
+    <select id="findByIdForUpdate" resultType="Activity" databaseId="mysql">
         SELECT id, title, category, start_at, location, capacity, policy_type,
                created_at, updated_at, deleted_at
         FROM activity
         WHERE id = #{id}
         FOR UPDATE
+    </select>
+
+    <select id="findByIdForUpdate" resultType="Activity" databaseId="sqlite">
+        SELECT id, title, category, start_at, location, capacity, policy_type,
+               created_at, updated_at, deleted_at
+        FROM activity
+        WHERE id = #{id}
     </select>
 
     <select id="countApproved" resultType="int">

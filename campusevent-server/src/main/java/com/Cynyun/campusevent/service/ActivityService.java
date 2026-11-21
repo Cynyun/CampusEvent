@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -23,9 +24,9 @@ public class ActivityService {
     private final RegistrationMapper registrationMapper;
 
     public List<Activity> listActive(String keyword, PolicyType policyType, String category) {
-        String normalizedKeyword = keyword == null || keyword.isBlank() ? null : keyword.trim();
+        String normalizedKeyword = keyword == null || keyword.isBlank() ? null : "%" + keyword.trim() + "%";
         String normalizedCategory = category == null || category.isBlank() ? null : category.trim();
-        return activityMapper.findActive(normalizedKeyword, policyType, normalizedCategory);
+        return sortForDisplay(activityMapper.findActive(normalizedKeyword, policyType, normalizedCategory));
     }
 
     public Activity getForStudent(Long id, String studentId) {
@@ -45,7 +46,7 @@ public class ActivityService {
     }
 
     public List<Activity> listForAdmin(boolean includeDeleted) {
-        return activityMapper.findAllForAdmin(includeDeleted);
+        return sortForDisplay(activityMapper.findAllForAdmin(includeDeleted));
     }
 
     @Transactional
@@ -94,7 +95,16 @@ public class ActivityService {
     }
 
     public List<ActivityStats> statistics() {
-        return activityMapper.findAllForAdmin(false).stream().map(ActivityStats::from).toList();
+        return sortForDisplay(activityMapper.findAllForAdmin(false)).stream().map(ActivityStats::from).toList();
+    }
+
+    private List<Activity> sortForDisplay(List<Activity> activities) {
+        return activities.stream()
+                .sorted(Comparator
+                        .comparing((Activity activity) -> !activity.isOpen())
+                        .thenComparing(Activity::getStartAt,
+                                Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
     }
 
     private Activity getActive(Long id) {
