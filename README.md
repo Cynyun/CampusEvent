@@ -15,7 +15,7 @@
 | 设计文档 | 已完成，入口 [设计文档索引](docs/design/README.md) |
 | 验收 | C1—C10 全部通过，记录见 [验收记录](docs/验收记录.md) |
 | 自动化测试 | 后端单元测试通过；前端生产构建通过 |
-| 部署 | 未部署公网；支持本地单进程运行 |
+| 部署 | 已部署到 Vibe Hosting：https://cynyun-campus.thevibehosting.com/ |
 
 ## 功能范围
 
@@ -309,11 +309,22 @@ C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收�
 - docs/design/00-design-review.md
 - docs/design/diagrams/CampusEvent-design.drawio
 
+## 公网部署
+
+- 地址：https://cynyun-campus.thevibehosting.com/
+- 平台：Vibe Hosting，Ubuntu 24.04 + OpenJDK 21，单机 4 GB RAM 上限
+- 进程：`/root/run.sh` 前台启动，JVM 堆 512 MB，Spring Boot 同时提供页面与 API
+- 数据：服务器本地 SQLite，路径 `/root/myapp/data/campusevent.db`
+- 休眠：保持 `never_sleep=false`，空闲后缩容，首次访问可能需要几秒唤醒
+- 演示账号：`student / 123456`、`admin / 123456`；批量账号 `student01`—`student36`
+- 部署脚本：[scripts/run-vibe.sh](scripts/run-vibe.sh)
+- 公网登录页截图：[docs/screenshots/vibe-login.png](docs/screenshots/vibe-login.png)
+
 ## 已知限制
 
 - 使用固定演示账号与会话登录，未实现注册、找回密码和细粒度权限。
 - SQLite 模式为单连接池，适合课程演示与单机使用；高并发写入应切换 MySQL。
 - 活动列表未分页；数据量大时需补充分页与索引优化。
 - 站内通知为同步写入，未引入消息队列；通知失败不会重试。
-- 未部署公网，未实现 HTTPS、生产级备份、监控与限流。
-- 示例密码 123456 仅用于课程演示，公网部署前必须修改。
+- 公网环境使用单机 SQLite 与按需休眠，未实现生产级备份、监控、限流与多实例容灾。
+- 示例密码 123456 仅用于课程演示，公网地址已公开，不应存放真实用户数据。
