@@ -320,6 +320,24 @@ C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收�
 - 部署脚本：[scripts/run-vibe.sh](scripts/run-vibe.sh)
 - 公网登录页截图：[docs/screenshots/vibe-login.png](docs/screenshots/vibe-login.png)
 
+### 公网登录 403 的 CORS 说明
+
+浏览器从公网域名登录时，同源 POST 请求也会带上 `Origin: https://cynyun-campus.thevibehosting.com`。如果后端 CORS 只允许本地 Vite 地址，Spring 会在进入 Controller 前直接返回 403，表现为“服务器能启动、接口用命令行测试正常，但浏览器登录失败”。
+
+本项目已在 `campusevent-server/src/main/java/com/Cynyun/campusevent/config/WebConfig.java` 中放行：
+
+- `http://localhost:*`、`http://127.0.0.1:*`（本地开发）
+- `https://cynyun-campus.thevibehosting.com`（当前公网域名）
+- `https://*.thevibehosting.com`（Vibe Hosting 子域名）
+
+更换公网域名或反向代理地址后，必须同步修改这里，否则登录、报名等 POST 接口会再次出现 403。验证方式：
+
+~~~powershell
+curl.exe -i -X POST "https://cynyun-campus.thevibehosting.com/api/auth/login" -H "Origin: https://cynyun-campus.thevibehosting.com" -H "Content-Type: application/json" -d '{"username":"admin","password":"123456"}'
+~~~
+
+预期返回 `HTTP/1.1 200` 且 `data.role` 为 `ADMIN`；若仍是 403，先检查响应头是否带 `Access-Control-Allow-Origin`，再核对 `WebConfig` 的允许列表。
+
 ## 已知限制
 
 - 使用固定演示账号与会话登录，未实现注册、找回密码和细粒度权限。
