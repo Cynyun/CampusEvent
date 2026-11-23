@@ -12,10 +12,11 @@
 | 数据库 | 默认 SQLite campusevent.db；可选 MySQL 8，库名 campusevent |
 | 静态资源 | campusevent-web/dist 已复制到后端 src/main/resources/static |
 | 首次启动 | 自动建表，并写入 8 个活动、36 个学生、116 条报名与通知 |
-| 设计文档 | 已完成，入口 [设计文档索引](docs/design/README.md) |
-| 验收 | C1—C10 全部通过，记录见 [验收记录](docs/验收记录.md) |
-| 自动化测试 | 后端单元测试通过；前端生产构建通过 |
+| 设计文档 | 已完成并随 baseline-v1 封存，入口 [设计文档索引](docs/design/README.md) |
+| 验收 | C1—C10 全部通过；自动化证据见 [回归测试表](docs/回归测试表.md) 与 [验收记录](docs/验收记录.md) |
+| 自动化测试 | 15 项全部通过：C1—C10 验收 10 项、真实重启 1 项、策略单测 3 项、密码单测 1 项；前端生产构建通过 |
 | 部署 | 已部署到 Vibe Hosting：https://cynyun-campus.thevibehosting.com/ |
+| 基线 | baseline-v1（2026-11-23）；教师 CR 尚未发布，change-v2 未开始 |
 
 ## 功能范围
 
@@ -65,13 +66,17 @@
 ~~~
 CampusEvent/
   README.md
+  AI_DEV_LOG.md             AI 使用与过程记录
   scripts/
     build-all.ps1           构建前端并复制 dist 到 Spring Boot static
     build-all.cmd           Windows 双击入口
   docs/
     design/                 设计文档与 UML 图
     screenshots/            01—09 运行截图
-    验收记录.md             C1—C10 验收结果
+    初始SRS分析.md          初始需求基线（P2-F01—F08、BR、C1—C10）
+    设计模式决策报告.md      策略/观察者选型、备选方案、代价与验证
+    回归测试表.md            15 项测试与 C1—C10 对照
+    验收记录.md             C1—C10 手工验收结果
   campusevent-server/       Spring Boot 后端
     src/main/java/com/Cynyun/campusevent/
       auth/                 登录、会话、角色拦截器
@@ -90,7 +95,7 @@ CampusEvent/
       schema-mysql.sql      MySQL 表结构
       static/               前端生产构建产物（由脚本生成）
       mapper/               MyBatis XML
-    src/test/               策略与密码单元测试
+    src/test/               C1—C10 验收、真实重启、策略与密码测试（15 项）
   campusevent-web/          Vue 3 前端源码
     src/api/                 axios 接口封装
     src/views/               9 个页面
@@ -266,12 +271,14 @@ Spring Boot 的 SpaController 对上述前端路径回退到 index.html，刷新
 
 ## 测试与验收
 
-后端单元测试：
+自动化测试（15 项）：
 
 ~~~powershell
 cd D:/SE/CampusEvent/campusevent-server
 mvn test
 ~~~
+
+覆盖内容：CampusEventAcceptanceTest 的 C1—C10 共 10 项；CampusEventRestartTest 真实重启 1 项；RegistrationPolicyTest 3 项；PasswordUtilTest 1 项。逐条说明见 [回归测试表](docs/回归测试表.md)。
 
 前端生产构建：
 
@@ -280,7 +287,7 @@ cd D:/SE/CampusEvent/campusevent-web
 npm run build
 ~~~
 
-C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收记录.md)。C10 的“重启后数据保持”在 SQLite 默认模式下同样成立：数据库是启动目录下的单文件，重启只重新建表（IF NOT EXISTS），不会清空数据。
+C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收记录.md)；自动化方法名、断言与命令见 [回归测试表](docs/回归测试表.md)。C10 的“重启后数据保持”在 SQLite 默认模式下同样成立：数据库是启动目录下的单文件，重启只重新建表（IF NOT EXISTS），不会清空数据。
 
 ## 运行截图
 
@@ -298,8 +305,12 @@ C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收�
 
 截图生成于 MySQL 演示数据版本，页面结构与当前版本一致；当前默认 SQLite 首次启动会生成更多活动与学生，功能验收不受影响。
 
-## 设计文档
+## 设计文档与过程材料
 
+- [初始 SRS 分析](docs/初始SRS分析.md)
+- [设计模式决策报告](docs/设计模式决策报告.md)
+- [回归测试表](docs/回归测试表.md)
+- [AI 开发日志](AI_DEV_LOG.md)
 - docs/design/README.md
 - docs/design/01-use-case-description.md
 - docs/design/02-class-diagram.md
@@ -343,6 +354,9 @@ curl.exe -i -X POST "https://cynyun-campus.thevibehosting.com/api/auth/login" -H
 - 使用固定演示账号与会话登录，未实现注册、找回密码和细粒度权限。
 - SQLite 模式为单连接池，适合课程演示与单机使用；高并发写入应切换 MySQL。
 - 活动列表未分页；数据量大时需补充分页与索引优化。
-- 站内通知为同步写入，未引入消息队列；通知失败不会重试。
+- 站内通知为同步写入，未引入消息队列；通知失败不会重试，也没有幂等键。重试被状态机挡住，但 afterCommit 崩溃窗口仍可能丢通知（U2）。
+- 活动软删除只支持删除与查看已删除，未实现“恢复活动”端点。
+- C1—C10 只在 SQLite 上跑自动化；MySQL 仅做启动与基本接口验证，未做 MySQL 全量回归与高并发压测。
+- 前端没有 Playwright/Cypress 自动化，页面验收依赖手工冒烟与截图。
 - 公网环境使用单机 SQLite 与按需休眠，未实现生产级备份、监控、限流与多实例容灾。
 - 示例密码 123456 仅用于课程演示，公网地址已公开，不应存放真实用户数据。

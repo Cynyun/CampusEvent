@@ -1,11 +1,11 @@
 # CampusEvent 设计文档索引（V1）
 
 **项目**：校园活动报名与管理系统（CampusEvent）  
-**阶段**：编码前设计基线；尚未开始 Java 实现  
+**阶段**：V1 设计已实现并封存为 baseline-v1（2026-11-23）；教师 CR 尚未发布，change-v2 未开始  
 **日期**：2026-11-19  
 **对应实验**：《软件工程》实验二 3.1—3.8 与附录 B
 
-本目录只放“设计 V1”的用例、类图、时序图、评审表和图形源文件。教师统一发布 CR 之前，不实现变更需求；本目录也不包含业务代码。
+本目录以“设计 V1”的用例、类图、时序图、评审表和图形源文件为主。设计文档本身不含业务代码；实现代码位于 ../../campusevent-server 与 ../../campusevent-web，设计到代码的映射见 3.3。教师统一发布 CR 之前，不实现变更需求。
 
 ## 1. 文件索引
 
@@ -62,23 +62,45 @@
 | C7 | 管理员拒绝另一人并通知 | UC-07 拒绝分支；updateStatus(REJECTED) → publish |
 | C8 | 名额已满时批准失败 | UC-07 满员分支；状态保持 PENDING |
 | C9 | 取消待审核/已通过，统计同步 | UC-06；取消后不计入 countApproved |
-| C10 | 重启后数据一致 | 仓储持久化；Service 不依赖内存状态；实现阶段补集成测试 |
+| C10 | 重启后数据一致 | 仓储持久化；Service 不依赖内存状态；CampusEventRestartTest 真实重启 + c10DataIsPersistedInTheSqliteFile 持久化断言，均已通过 |
+
+### 3.3 设计到实现的映射（baseline-v1）
+
+| 设计元素 | 实现位置 | 说明 |
+|---|---|---|
+| Activity / Student / Registration / Message | campusevent-server/src/main/java/com/Cynyun/campusevent/entity | 与附录 B.1 字段对应；Activity 增加 deleted_at；Student/Admin 增加 password_hash |
+| ActivityService | service/ActivityService.java | 创建/编辑校验、软删除、列表筛选、统计、详情 |
+| RegistrationService | service/RegistrationService.java | 报名、取消、批准、拒绝；事务、行锁、查重、审批容量复查 |
+| RegistrationPolicy 及两种实现 | policy/RegistrationPolicy.java、DirectRegistrationPolicy.java、ApprovalRegistrationPolicy.java | 策略只决定新提交的 APPROVED/PENDING |
+| RegistrationPolicyFactory | policy/RegistrationPolicyFactory.java | 按 PolicyType 返回策略；新增类型需同步工厂 |
+| RegistrationEvent / 发布器 / 观察者 | event/RegistrationEvent.java、RegistrationEventPublisher.java、NotificationObserver.java、InAppNotificationObserver.java | 事务提交后发布；观察者异常隔离 |
+| TransactionHooks | common/TransactionHooks.java | afterCommit 回调；无事务时立即执行 |
+| 持久化与方言 | mapper/*.xml、config/MyBatisConfig.java、schema-sqlite.sql、schema-mysql.sql | MySQL 行锁；SQLite 单连接串行化 |
+| 前端页面与 API | campusevent-web/src/views、src/api、src/router | 学生端/管理员端；Element Plus |
+| 静态资源合并 | campusevent-server/src/main/resources/static | 前端 dist 打包进 jar；SpaController 做路由 fallback |
+| 测试入口 | src/test/java/com/Cynyun/campusevent/acceptance/CampusEventAcceptanceTest.java、CampusEventRestartTest.java；policy/RegistrationPolicyTest.java、policy/PasswordUtilTest.java | 15 项测试；命令见 docs/回归测试表.md |
+
+实现与设计的已知差异：
+
+- 设计评审表写“容量由服务统一校验”；实现把“新提交的准入判定”放进策略，服务仍负责统计、锁定和审批复查。理由与取舍见 docs/设计模式决策报告.md 2.4，未把差异藏起来。
+- 设计类图是语言中立的；实现使用 Spring Boot、MyBatis、Lombok，类图不反映注解与框架类型，属于正常映射，不是设计变更。
+- C10 的自动化由 CampusEventRestartTest 真实重启 + AcceptanceTest 的持久化断言共同覆盖；早期“实现阶段补集成测试”的备注已过期。
 
 ## 4. 关键设计决策（摘要）
 
-1. **策略只决定报名结果**：RegistrationPolicy 只返回 APPROVED/PENDING；容量、开放时间、重复报名由 RegistrationService 统一校验。避免两个策略各写一套容量规则。
+1. **策略只决定新提交的准入结果**：RegistrationPolicy 返回 APPROVED/PENDING；容量统计、活动行锁、开放时间、重复报名由 RegistrationService 统一处理，审批时由服务复查容量。策略消费服务统计好的 approvedCount，不自己查库或加锁；避免两个策略各写一套容量规则。实现与评审表述的差异见《设计模式决策报告》2.4。
 2. **名额只算已通过**：countApproved 只统计 APPROVED；PENDING 不占名额，所以审核型活动可以超额提交申请，批准时再复查容量。
 3. **通知与事务解耦**：先提交报名/审批状态，再 publish；InAppNotificationObserver 写 Message；通知失败只记日志，不回滚业务。
 4. **防重复**：状态转换只能发生一次；审批前先检查 PENDING；同一状态变化不重复发布事件。
 5. **不引入 MQ/分布式事务**：课程范围用同步观察者；报告里说明“提交后发布前崩溃可能丢通知”的边界。
-6. **语言中立类图**：先按 UML 画职责与关系，Java 实现时再映射到具体类型；后续可用 IDEA 从代码生成类图做对比。
+6. **语言中立类图**：设计类图按 UML 画职责与关系，不写 Java 注解和框架类型；实现类图只作对照，不纳入设计基线。编码阶段曾用 IDEA 生成实现类图，因包含 Lombok 方法、Controller 等实现细节且与设计图重复，已在封存前清理。
 
 ## 5. 图形维护约定
 
 - **文字版（Mermaid）是评审与 diff 的主版本**；draw.io 是展示版，两者必须同步。
 - 改图时编辑 diagrams/CampusEvent-design.drawio，不要手工改 .drawio.svg。
 - draw.io 文件共 5 页：01 用例图、02 类图、03 直接报名、04 审核报名、05 审批；改完某页后重新导出对应 SVG。
-- 类图保持语言中立：不写 Java 注解、包名、框架类型；这些留到实现阶段。
+- 设计类图保持语言中立：不写 Java 注解、包名、框架类型；实现细节放在代码与测试中。
 - 时序图只画协作与消息顺序，不画具体 SQL；持久化细节放在实现和测试里。
 
 ## 6. 已决策与剩余问题
@@ -92,4 +114,14 @@
 - 本设计覆盖 P2-F01—P2-F08；不实现注册、复杂权限、邮件/短信、复杂日历、移动端 App。
 - 不实现教师后续 CR；变更版类图、影响分析和 change-v2 标签在收到 CR 后单独做。
 - 不包含 UI 视觉稿；页面结构在实现阶段按用例基本流落地。
-- 本目录不含 Java 代码；代码进入 src/ 后再补实现映射与测试。
+- 本目录不含 Java 代码；实现映射、测试入口与 baseline-v1 封存状态见 3.3 与第 8 节。
+
+## 8. 初始版封存状态（baseline-v1）
+
+- 封存日期：2026-11-23。
+- 代码：campusevent-server（Spring Boot 3.3.5 + Java 21 + MyBatis，默认 SQLite，可切 MySQL）与 campusevent-web（Vue 3 + Vite + Element Plus）。
+- 部署：https://cynyun-campus.thevibehosting.com/ ，单机 4 GB，jar + 静态资源，HTTP 200。
+- 测试：C1—C10 自动化 + 真实重启 + 策略/密码单测，共 15 项全部通过；证据见 docs/回归测试表.md。
+- 文档：docs/初始SRS分析.md、docs/设计模式决策报告.md、docs/回归测试表.md、AI_DEV_LOG.md 与本目录 01—05。
+- 变更状态：教师 CR 尚未发布；本基线不包含任何 change-v2 内容。CR 发布后先做影响分析，再从 baseline-v1 建分支，跑全量回归后打 change-v2。
+
