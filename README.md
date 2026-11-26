@@ -16,7 +16,7 @@
 | 验收 | C1—C10 与 CR1/CR2 全部通过；自动化证据见 [回归测试表](docs/回归测试表.md) 与 [验收记录](docs/验收记录.md) |
 | 自动化测试 | 24 项全部通过：C1—C10 与 CR1/CR2 验收 12 项、邮件失败 1 项、真实重启 1 项、策略单测 9 项、密码单测 1 项；前端生产构建通过 |
 | 部署 | 已部署到 Vibe Hosting：https://cynyun-campus.thevibehosting.com/ |
-| 基线 | baseline-v1（2026-11-23）保留；change-v2（2026-11-26）实现 CR-01/CR-02，待提交、部署与打标签 |
+| 基线 | baseline-v1（2026-11-23）保留；change-v2（2026-11-26，`fdd2364`）实现并部署 CR-01/CR-02，公网复测已通过 |
 
 ## 功能范围
 
@@ -329,6 +329,7 @@ C1—C10 与 CR1/CR2 的验收步骤、实际结果与证据见 [验收记录](d
 ## 公网部署
 
 - 地址：https://cynyun-campus.thevibehosting.com/
+- 当前线上版本：change-v2（`fdd2364`），含 CR-01 年级限定与 CR-02 模拟邮件；复测记录见 [docs/验收记录.md](docs/验收记录.md)
 - 平台：Vibe Hosting，Ubuntu 24.04 + OpenJDK 21，单机 4 GB RAM 上限
 - 进程：`/root/run.sh` 前台启动，JVM 堆 512 MB，Spring Boot 同时提供页面与 API
 - 数据：服务器本地 SQLite，路径 `/root/myapp/data/campusevent.db`

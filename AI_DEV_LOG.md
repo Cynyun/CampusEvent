@@ -13,7 +13,7 @@
 - 技术栈：Spring Boot 3.3.5、Java 21、MyBatis、SQLite（默认）/ MySQL 8、Vue 3 + Vite + Element Plus。
 - 代码基线：baseline-v1（46b5c3f），保留 15 项测试与初始设计；change-v2（2026-11-26）在基线之上实现 CR-01/CR-02，测试增至 24 项。
 - 公网地址：https://cynyun-campus.thevibehosting.com/ （2026-11-21 起可访问；演示账号 student/123456、admin/123456）。
-- 变更状态：教师 CR-01（年级限定直接报名）与 CR-02（模拟邮件通知）已发布并实施在 change-v2 分支；baseline-v1 的 main 与标签未动。
+- 变更状态：教师 CR-01（年级限定直接报名）与 CR-02（模拟邮件通知）已发布、实施并部署在 change-v2 分支（`fdd2364`）；baseline-v1 的 main 与标签未动。
 
 ## 2. 关键指令与 AI 执行台账
 
@@ -78,7 +78,7 @@
 - 真实 HTTP 冒烟（本地 jar + 临时 SQLite，18080）：创建活动 200；直接报名 APPROVED；重复报名 409；满员 409；审核报名 PENDING；批准 200；超员批准 409；取消待审核/已通过 200；统计同步；重启后数据仍在。
 - CR1 冒烟：GRADE_LIMITED_DIRECT 活动 grade=1/4 报名 403、grade=2/3 报名 200 APPROVED。
 - CR2 冒烟：直接报名 email_log SENT；重复报名 409 不新增日志；审核提交 PENDING 不发；批准/拒绝各 1 条；mock 失败写 FAILED 且报名不回滚。
-- 公网：根路径 HTTP 200；未登录 API 401；student01/123456 可登录并看到 8 个活动；admin 登录在 CORS 修复后可进入管理端。change-v2 部署后的公网复测单独记录，避免把本地通过写成线上已验证。
+- 公网：根路径 HTTP 200；未登录 API 401；student01/123456 可登录并看到既有活动；admin 登录在 CORS 修复后可进入管理端。change-v2 部署后于 2026-11-26 复测：CR1 四账号 403/200/200/403，CR2 直接报名与批准写 SENT、PENDING 不写，原 DIRECT 报名仍 200；详见 docs/验收记录.md。
 - 证据文件：docs/回归测试表.md、docs/验收记录.md、docs/测试输出（如已保存）、docs/screenshots/。
 
 ## 6. AI 使用反思
@@ -94,6 +94,6 @@
 
 1. 已完成：从 baseline-v1 切出 change-v2；未在 main 直接改；CR 代码、测试、设计标注、文档改动均保留在分支。
 2. 已完成：跑 24 项测试（C1—C10 + CR1/CR2 + 邮件失败 + 重启 + 策略/密码）；更新回归测试表、验收记录、README、设计报告与变更影响分析。
-3. 待完成：git commit/push change-v2；构建 jar；部署 Vibe 并用公网验证 CR1 403、CR2 email_log 与页面无 CORS 回归；部署后打 change-v2 标签。
+3. 已完成：commit/push change-v2（`fdd2364`）；构建 jar 并部署 Vibe；公网验证 CR1 403/200、CR2 email_log、PENDING 不发信与原 DIRECT 回归；部署记录已补入验收记录，提交后打 `change-v2` 标签。
 4. 后续可做：真实 SMTP、MySQL 全量回归、前端 Playwright/Cypress、通知重试/幂等键。
 5. baseline-v1 的 main 与标签保持不动；change-v2 的结论以本分支文档和部署复测为准。
