@@ -29,7 +29,7 @@
 | 1 | P2-F01—P2-F08 是否都有用例覆盖 | 通过 | UC-01—UC-09 与功能逐条对应，见 01 文档第 2 节 | 无 |
 | 2 | 参与者是否只有 Student/Admin，是否越界做注册/权限 | 通过 | 固定演示账号；明确不实现注册与复杂授权 | 无 |
 | 3 | 用例是否写清前置、基本流、扩展流、后置 | 通过 | UC-01/04/05/06/07 为完整结构；UC-02 补软删除说明；其余为摘要级 | 评审时可要求补齐 UC-03/08/09 的扩展流 |
-| 4 | 类图是否覆盖实体、服务、策略、通知四类职责 | 通过 | 17 个类型；Activity/Registration/Student/Message + Service/Policy/Publisher/Observer | 无 |
+| 4 | 类图是否覆盖实体、服务、策略、通知四类职责 | 通过 | V1 17 个类型；change-v2 新增 9 个类型见 02 图示 | 无 |
 | 5 | 策略接口是否只决定报名结果 | 通过 | RegistrationPolicy.decide(activity, approvedCount) 只返回 APPROVED/PENDING | 无 |
 | 6 | 容量、开放时间、重复报名是否作为公共规则 | 通过 | 放在 RegistrationService；类图 note 与 02 文档 3.1 说明 | 无 |
 | 7 | 名额是否只统计“已通过” | 通过 | RegistrationService 在报名/审批时 countApproved；待审核不占名额 | 无 |

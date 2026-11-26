@@ -34,16 +34,20 @@ export function statusType(status) {
 }
 
 export function policyText(type) {
-  return type === 'APPROVAL' ? '审核制' : '直接报名'
+  if (type === 'APPROVAL') return '审核制'
+  if (type === 'GRADE_LIMITED_DIRECT') return '年级限定'
+  return '直接报名'
 }
 
 export function policyType(type) {
-  return type === 'APPROVAL' ? 'warning' : 'success'
+  if (type === 'APPROVAL') return 'warning'
+  if (type === 'GRADE_LIMITED_DIRECT') return 'primary'
+  return 'success'
 }
 
 export function activityState(activity) {
   if (!activity) return '已结束'
   if (!activity.open) return '已开始'
-  if (activity.policyType === 'DIRECT' && !activity.hasCapacity) return '已满员'
+  if (['DIRECT', 'GRADE_LIMITED_DIRECT'].includes(activity.policyType) && !activity.hasCapacity) return '已满员'
   return '报名中'
 }

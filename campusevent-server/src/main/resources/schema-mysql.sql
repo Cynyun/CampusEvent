@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS student (
     student_id   VARCHAR(32)  NOT NULL,
     name         VARCHAR(50)  NOT NULL,
+    grade        INT          NULL,
     password_hash CHAR(64)    NOT NULL,
     PRIMARY KEY (student_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
@@ -53,6 +54,20 @@ CREATE TABLE IF NOT EXISTS message (
     KEY idx_message_student_read (student_id, is_read),
     CONSTRAINT fk_message_student FOREIGN KEY (student_id) REFERENCES student (student_id),
     CONSTRAINT fk_message_activity FOREIGN KEY (activity_id) REFERENCES activity (id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS email_log (
+    id              BIGINT       NOT NULL AUTO_INCREMENT,
+    registration_id BIGINT       NOT NULL,
+    event_type      VARCHAR(32)  NOT NULL,
+    recipient       VARCHAR(128) NOT NULL,
+    subject         VARCHAR(200) NOT NULL,
+    content         VARCHAR(500) NOT NULL,
+    status          VARCHAR(16)  NOT NULL,
+    error_message   VARCHAR(255) NULL,
+    created_at      DATETIME     NOT NULL,
+    PRIMARY KEY (id),
+    KEY idx_email_log_registration (registration_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS app_meta (

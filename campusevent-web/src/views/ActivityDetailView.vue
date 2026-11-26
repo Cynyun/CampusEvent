@@ -18,10 +18,14 @@ const hasActiveRegistration = computed(() =>
   ['PENDING', 'APPROVED'].includes(activity.value?.myRegistrationStatus)
 )
 
+const isDirectLike = computed(() =>
+  ['DIRECT', 'GRADE_LIMITED_DIRECT'].includes(activity.value?.policyType)
+)
+
 const canRegister = computed(() => {
   const item = activity.value
   if (!item || !item.open || hasActiveRegistration.value) return false
-  if (item.policyType === 'DIRECT') return Boolean(item.hasCapacity)
+  if (isDirectLike.value) return Boolean(item.hasCapacity)
   return true
 })
 
@@ -30,7 +34,7 @@ const signupText = computed(() => {
   if (!item) return '加载中'
   if (!item.open) return '活动已开始'
   if (hasActiveRegistration.value) return '已提交报名'
-  if (item.policyType === 'DIRECT' && !item.hasCapacity) return '名额已满'
+  if (isDirectLike.value && !item.hasCapacity) return '名额已满'
   return item.policyType === 'APPROVAL' ? '提交报名申请' : '立即报名'
 })
 
@@ -140,7 +144,9 @@ onMounted(load)
           <p class="page-subtitle" style="margin: 0">
             {{ activity.policyType === 'DIRECT'
               ? '直接报名：提交后立即通过并占用名额；名额已满时无法提交，需要等待已通过的学生取消。'
-              : '审核制报名：提交后进入待审核，管理员通过后才占用名额；待审核不占名额，满员时仍可提交申请。' }}
+              : activity.policyType === 'GRADE_LIMITED_DIRECT'
+                ? '年级限定直接报名：仅大二、大三学生可提交；提交后立即通过并占用名额，其他年级会被拒绝。'
+                : '审核制报名：提交后进入待审核，管理员通过后才占用名额；待审核不占名额，满员时仍可提交申请。' }}
           </p>
         </div>
       </section>
@@ -168,7 +174,7 @@ onMounted(load)
           title="活动已开始，报名通道关闭"
         />
         <el-alert
-          v-else-if="activity.policyType === 'DIRECT' && !activity.hasCapacity"
+          v-else-if="isDirectLike && !activity.hasCapacity"
           type="error"
           :closable="false"
           show-icon

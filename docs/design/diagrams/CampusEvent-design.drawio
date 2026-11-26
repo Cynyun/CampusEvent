@@ -1,6 +1,6 @@
 <mxfile host="localhost" pages="5">
   <diagram id="ajm0j7ne-7248" name="01 用例图">
-    <mxGraphModel dx="1154" dy="550" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="834" dy="568" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -71,12 +71,12 @@
     </mxGraphModel>
   </diagram>
   <diagram id="455swurm-oo79" name="02 类图">
-    <mxGraphModel dx="962" dy="458" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="546" dy="372" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="2" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Student&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- studentId: String&lt;br&gt;- name: String" vertex="1">
-          <mxGeometry height="75" width="170" x="20" y="20" as="geometry" />
+        <mxCell id="2" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Student&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;- studentId: String&lt;br&gt;- name: String&lt;br&gt;- grade: int &lt;font color=&quot;#b45f06&quot;&gt;← 新增&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="170" x="20" y="20" as="geometry" />
         </mxCell>
         <mxCell id="3" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Activity&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- activityId: String&lt;br&gt;- title: String&lt;br&gt;- category: String&lt;br&gt;- startAt: LocalDateTime&lt;br&gt;- location: String&lt;br&gt;- capacity: int&lt;br&gt;- policyType: PolicyType&lt;br&gt;────&lt;br&gt;+ isOpen(now): boolean&lt;br&gt;+ hasCapacity(count): boolean" vertex="1">
           <mxGeometry height="140" width="150" x="210" y="20" as="geometry" />
@@ -90,29 +90,29 @@
         <mxCell id="6" parent="1" style="rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;Admin&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- adminId: String&lt;br&gt;- name: String" vertex="1">
           <mxGeometry height="60" width="170" x="20" y="190" as="geometry" />
         </mxCell>
-        <mxCell id="7" parent="1" style="rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;PolicyType&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«enumeration»&lt;br&gt;DIRECT&lt;br&gt;APPROVAL" vertex="1">
-          <mxGeometry height="70" width="150" x="210" y="190" as="geometry" />
+        <mxCell id="7" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;PolicyType&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;«enumeration»&lt;br&gt;DIRECT&lt;br&gt;APPROVAL&lt;br&gt;+ GRADE_LIMITED_DIRECT" vertex="1">
+          <mxGeometry height="95" width="150" x="210" y="190" as="geometry" />
         </mxCell>
         <mxCell id="8" parent="1" style="rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationStatus&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«enumeration»&lt;br&gt;PENDING&lt;br&gt;APPROVED&lt;br&gt;REJECTED&lt;br&gt;CANCELLED" vertex="1">
           <mxGeometry height="90" width="130" x="420" y="190" as="geometry" />
         </mxCell>
-        <mxCell id="9" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationPolicy&lt;/b&gt;&lt;br&gt;────&lt;br&gt;«interface»&lt;br&gt;────&lt;br&gt;+ decide(a, count): Status" vertex="1">
-          <mxGeometry height="70" width="140" x="610" y="190" as="geometry" />
+        <mxCell id="9" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;RegistrationPolicy&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;«interface»&lt;br&gt;────&lt;br&gt;+ decide(ctx): Status&lt;br&gt;&lt;font color=&quot;#b45f06&quot;&gt;ctx: RegistrationContext&lt;/font&gt;" vertex="1">
+          <mxGeometry height="95" width="150" x="610" y="190" as="geometry" />
         </mxCell>
         <mxCell id="10" parent="1" style="rounded=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;InAppNotificationObserver&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ onEvent(event): void" vertex="1">
           <mxGeometry height="50" width="140" x="220" y="290" as="geometry" />
         </mxCell>
-        <mxCell id="11" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;DirectRegistrationPolicy&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ decide(a, count): Status" vertex="1">
-          <mxGeometry height="70" width="150" x="230" y="370" as="geometry" />
+        <mxCell id="11" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;DirectRegistrationPolicy&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ decide(ctx): Status&lt;br&gt;&lt;font color=&quot;#b45f06&quot;&gt;签名改为上下文&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="150" x="230" y="370" as="geometry" />
         </mxCell>
-        <mxCell id="12" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;ApprovalRegistrationPolicy&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ decide(a, count): Status" vertex="1">
-          <mxGeometry height="60" width="150" x="410" y="320" as="geometry" />
+        <mxCell id="12" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;ApprovalRegistrationPolicy&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ decide(ctx): Status&lt;br&gt;&lt;font color=&quot;#b45f06&quot;&gt;仍返回 PENDING&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="150" x="410" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="13" parent="1" style="rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationPolicyFactory&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ create(type): Policy" vertex="1">
-          <mxGeometry height="50" width="150" x="605" y="325" as="geometry" />
+        <mxCell id="13" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;RegistrationPolicyFactory&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ create(type): Policy&lt;br&gt;&lt;font color=&quot;#b45f06&quot;&gt;+ GRADE_LIMITED_DIRECT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="72" width="150" x="605" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="14" parent="1" style="rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationService&lt;/b&gt;&lt;br&gt;────&lt;br&gt;+ register(studentId, activityId)&lt;br&gt;+ cancel(studentId, registrationId)&lt;br&gt;+ approve(adminId, registrationId)&lt;br&gt;+ reject(adminId, registrationId)" vertex="1">
-          <mxGeometry height="80" width="170" x="20" y="310" as="geometry" />
+        <mxCell id="14" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;RegistrationService&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;- studentMapper: StudentMapper&lt;br&gt;────&lt;br&gt;+ register(studentId, activityId)&lt;br&gt;+ cancel(...)&lt;br&gt;+ approve(...)&lt;br&gt;+ reject(...)" vertex="1">
+          <mxGeometry height="110" width="170" x="20" y="310" as="geometry" />
         </mxCell>
         <mxCell id="15" parent="1" style="rounded=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;" value="&lt;b&gt;RegistrationEvent&lt;/b&gt;&lt;br&gt;────&lt;br&gt;- eventId: String&lt;br&gt;- type: RegistrationEventType&lt;br&gt;- registrationId: String&lt;br&gt;- studentId: String&lt;br&gt;- activityId: String&lt;br&gt;- occurredAt: LocalDateTime" vertex="1">
           <mxGeometry height="100" width="140" x="35" y="450" as="geometry" />
@@ -127,9 +127,9 @@
           <mxGeometry height="70" width="130" x="620" y="435" as="geometry" />
         </mxCell>
         <mxCell id="30" edge="1" parent="1" source="2" style="edgeStyle=orthogonalEdgeStyle;endArrow=none;fontSize=8;exitX=1;exitY=0.5;entryX=0;entryY=0.4;html=1;" target="4" value="owns">
-          <mxGeometry relative="1" x="0.0516" as="geometry">
+          <mxGeometry relative="1" x="0.052" as="geometry">
             <Array as="points">
-              <mxPoint x="200" y="57.5" />
+              <mxPoint x="200" y="65" />
               <mxPoint x="200" y="10" />
               <mxPoint x="390" y="10" />
               <mxPoint x="390" y="72" />
@@ -149,40 +149,42 @@
         <mxCell id="33" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;endArrow=none;fontSize=8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;;html=1;" target="7" value="uses">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="34" edge="1" parent="1" source="11" style="endArrow=block;dashed=1;endFill=0;fontSize=8;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1.001;exitY=0.559;entryX=0.002;entryY=0.792;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="9" value="impl">
-          <mxGeometry relative="1" x="-0.3914" as="geometry">
+        <mxCell id="34" edge="1" parent="1" source="11" style="endArrow=block;dashed=1;endFill=0;fontSize=8;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;entryX=0.002;entryY=0.792;exitDx=0;exitDy=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="9" value="impl">
+          <mxGeometry relative="1" x="-0.3289" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="590" y="409.1" />
-              <mxPoint x="590" y="245.4" />
+              <mxPoint x="590" y="409" />
+              <mxPoint x="590" y="265.2" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="35" edge="1" parent="1" source="12" style="endArrow=block;dashed=1;endFill=0;fontSize=8;html=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;" value="impl">
-          <mxGeometry relative="1" x="0.0215" as="geometry">
+        <mxCell id="35" edge="1" parent="1" source="12" style="endArrow=block;dashed=1;endFill=0;fontSize=8;html=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=#ffffff;exitX=0.999;exitY=0.509;exitDx=0;exitDy=0;exitPerimeter=0;" value="impl">
+          <mxGeometry relative="1" x="0.0355" as="geometry">
             <Array as="points">
-              <mxPoint x="580" y="350" />
+              <mxPoint x="580" y="359.7" />
               <mxPoint x="580" y="214" />
             </Array>
             <mxPoint x="610" y="214" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="36" edge="1" parent="1" source="13" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;entryX=0.5;entryY=1;html=1;" target="9" value="creates">
+        <mxCell id="36" edge="1" parent="1" source="13" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;entryX=0.468;entryY=1.002;html=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="9" value="creates">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="37" edge="1" parent="1" source="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=1;exitY=0.25;entryX=0.077;entryY=0.002;html=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="9" value="delegates">
+        <mxCell id="37" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;entryX=0.077;entryY=0.002;html=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="9" value="delegates">
           <mxGeometry relative="1" x="0.0221" as="geometry">
             <Array as="points">
+              <mxPoint x="190.2" y="330" />
               <mxPoint x="200" y="330" />
               <mxPoint x="200" y="180" />
-              <mxPoint x="620.8" y="180" />
+              <mxPoint x="621.6" y="180" />
             </Array>
+            <mxPoint x="190" y="330" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="38" edge="1" parent="1" source="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=1;exitY=0.75;entryX=0;entryY=0.5;html=1;" target="17" value="publishes">
+        <mxCell id="38" edge="1" parent="1" source="14" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;exitX=1.001;exitY=0.553;entryX=0;entryY=0.5;html=1;exitDx=0;exitDy=0;exitPerimeter=0;" target="17" value="publishes">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="220" y="370" />
+              <mxPoint x="220" y="370.8" />
               <mxPoint x="220" y="450" />
               <mxPoint x="390" y="450" />
               <mxPoint x="390" y="470" />
@@ -226,12 +228,12 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="43" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;fontSize=8;labelBackgroundColor=#ffffff;exitX=1;exitY=0.95;entryX=1;entryY=0.5;html=1;entryDx=0;entryDy=0;" target="13" value="resolves">
-          <mxGeometry relative="1" x="0.0225" as="geometry">
+          <mxGeometry relative="1" x="0.0347" as="geometry">
             <Array as="points">
               <mxPoint x="210" y="383.5" />
               <mxPoint x="210" y="570" />
               <mxPoint x="770" y="570" />
-              <mxPoint x="770" y="350" />
+              <mxPoint x="770" y="356" />
             </Array>
             <mxPoint x="190" y="383.5" as="sourcePoint" />
             <mxPoint x="770" y="342.5" as="targetPoint" />
@@ -240,11 +242,47 @@
         <mxCell id="NgVSubUmlo4OiT_OZMQK-43" edge="1" parent="1" source="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;innerLoopWaypoints=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="cr-zone" parent="1" style="rounded=0;dashed=1;dashPattern=8 4;fillColor=none;strokeColor=#b3b3b3;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="760" x="20" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-title" parent="1" style="text;align=left;verticalAlign=middle;fontSize=12;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="&lt;b&gt;CR-01 / CR-02 变更区&lt;/b&gt;　&lt;font color=&quot;#38761d&quot;&gt;绿色 = 新增&lt;/font&gt;　&lt;font color=&quot;#b45f06&quot;&gt;黄色 = 修改&lt;/font&gt;" vertex="1">
+          <mxGeometry height="28" width="740" x="30" y="598" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-context" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;RegistrationContext&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ student: Student&lt;br&gt;+ activity: Activity&lt;br&gt;+ approvedCount: int&lt;br&gt;────&lt;br&gt;«record»" vertex="1">
+          <mxGeometry height="95" width="170" x="40" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-grade-policy" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;GradeLimitedDirectRegistrationPolicy&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ decide(ctx): Status&lt;br&gt;────&lt;br&gt;1) grade ∈ {2,3}&lt;br&gt;2) 容量检查&lt;br&gt;3) APPROVED / 403 / 409" vertex="1">
+          <mxGeometry height="100" width="210" x="230" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-email-observer" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;EmailNotificationObserver&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ onEvent(event): void&lt;br&gt;────&lt;br&gt;SUBMITTED+APPROVED&lt;br&gt;APPROVED / REJECTED" vertex="1">
+          <mxGeometry height="95" width="170" x="460" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-email-sender" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;EmailSender&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;«interface»&lt;br&gt;+ send(msg): void" vertex="1">
+          <mxGeometry height="80" width="110" x="650" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-mock-sender" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;MockEmailSender&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;+ send(msg): void&lt;br&gt;────&lt;br&gt;写 EmailLog&lt;br&gt;可模拟失败" vertex="1">
+          <mxGeometry height="90" width="170" x="40" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-email-log" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;EmailLog&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;- registrationId&lt;br&gt;- recipient / subject&lt;br&gt;- status / error&lt;br&gt;- createdAt" vertex="1">
+          <mxGeometry height="90" width="160" x="230" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-email-log-mapper" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;EmailLogMapper&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;«mapper»&lt;br&gt;+ insert(log): void" vertex="1">
+          <mxGeometry height="80" width="150" x="410" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-email-message" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;EmailMessage&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;- registrationId&lt;br&gt;- eventType&lt;br&gt;- recipient&lt;br&gt;- subject / content" vertex="1">
+          <mxGeometry height="95" width="170" x="580" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-schema-migration" parent="1" style="rounded=0;fontSize=9;align=left;verticalAlign=top;spacingLeft=5;spacingRight=5;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;SchemaMigration&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;────&lt;br&gt;启动时检查列&lt;br&gt;ALTER student ADD grade&lt;br&gt;（基础设施）" vertex="1">
+          <mxGeometry height="80" width="200" x="40" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="cr-relations" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#fafafa;strokeColor=#cccccc;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;新增/修改关系&lt;/b&gt;&lt;br&gt;RegistrationService → RegistrationContext（构造）&lt;br&gt;RegistrationPolicy ← GradeLimitedDirectRegistrationPolicy&lt;br&gt;RegistrationPolicyFactory → GradeLimitedDirectRegistrationPolicy&lt;br&gt;NotificationObserver ← EmailNotificationObserver → EmailSender&lt;br&gt;EmailSender ← MockEmailSender → EmailLog ← EmailLogMapper&lt;br&gt;Student.grade ← SchemaMigration（老库补列）" vertex="1">
+          <mxGeometry height="120" width="490" x="260" y="865" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="hb3a5aod-c08i" name="03 直接报名时序">
-    <mxGraphModel dx="1154" dy="550" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1131" dy="771" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -305,7 +343,7 @@
         <mxCell id="60" edge="1" parent="1" source="6" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=480;entryX=0.5;entryY=0;entryDy=480;html=1;" target="3" value="true">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="61" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=520;entryX=0.5;entryY=0;entryDy=520;html=1;" target="7" value="decide(activity, approvedCount)">
+        <mxCell id="61" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;fontColor=#b45f06;exitX=0.5;exitY=0;exitDy=520;entryX=0.5;entryY=0;entryDy=520;html=1;" target="7" value="decide(context) [CHG]">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="62" edge="1" parent="1" source="7" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=560;entryX=0.5;entryY=0;entryDy=560;html=1;" target="3" value="APPROVED">
@@ -317,7 +355,7 @@
         <mxCell id="64" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=640;entryX=0.5;entryY=0;entryDy=640;html=1;" target="3" value="saved">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="65" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=680;entryX=0.5;entryY=0;entryDy=680;html=1;" target="8" value="publish(RegistrationApproved)">
+        <mxCell id="65" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=680;entryX=0.5;entryY=0;entryDy=680;html=1;" target="8" value="publish(SUBMITTED, status=APPROVED)">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="66" edge="1" parent="1" source="8" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=720;entryX=0.5;entryY=0;entryDy=720;html=1;" target="9" value="onEvent(event)">
@@ -337,11 +375,17 @@
         <mxCell id="90" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="说明：通知在报名事务提交后发布；通知失败只记录日志，不回滚报名。失败分支见 docs/design/03-sequence-direct-registration.md。" vertex="1">
           <mxGeometry height="40" width="760" x="20" y="890" as="geometry" />
         </mxCell>
+        <mxCell id="cr01-seq3" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#fff2cc;strokeColor=#d6b656;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;CR-01 变更&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;① 报名前读取 Student.grade&lt;br&gt;② 构造 RegistrationContext(student, activity, approvedCount)&lt;br&gt;③ Policy.decide(ctx) 统一签名&lt;br&gt;④ GRADE_LIMITED_DIRECT 仅大二/大三通过" vertex="1">
+          <mxGeometry height="120" width="370" x="20" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="cr02-seq3" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;CR-02 变更&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;① 事件：SUBMITTED + 状态 APPROVED&lt;br&gt;② 新增 EmailNotificationObserver，订阅同一事件&lt;br&gt;③ 直接报名发“报名成功”邮件&lt;br&gt;④ 邮件失败写 EmailLog(FAILED)，不影响报名事务&lt;br&gt;⑤ 同一业务事件只发一次" vertex="1">
+          <mxGeometry height="120" width="380" x="400" y="940" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="qa8f1wnd-cr3x" name="04 审核报名时序">
-    <mxGraphModel dx="1154" dy="550" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1320" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -390,7 +434,7 @@
         <mxCell id="106" edge="1" parent="1" source="5" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=320;entryX=0.5;entryY=0;entryDy=320;html=1;" target="3" value="none">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="107" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;exitX=0.5;exitY=0;exitDy=360;entryX=0.5;entryY=0;entryDy=360;html=1;" target="7" value="decide(activity, approvedCount)">
+        <mxCell id="107" edge="1" parent="1" source="3" style="verticalAlign=bottom;endArrow=block;fontSize=8;fontColor=#b45f06;exitX=0.5;exitY=0;exitDy=360;entryX=0.5;entryY=0;entryDy=360;html=1;" target="7" value="decide(context) [CHG]">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="108" edge="1" parent="1" source="7" style="verticalAlign=bottom;endArrow=open;dashed=1;fontSize=8;exitX=0.5;exitY=0;exitDy=400;entryX=0.5;entryY=0;entryDy=400;html=1;" target="3" value="PENDING">
@@ -422,11 +466,17 @@
         <mxCell id="190" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="说明：审核型报名提交时不扣名额，待审核不占容量；活动满员仍可提交待审核，审批时再检查容量。失败分支见 docs/design/04-sequence-review-registration.md。" vertex="1">
           <mxGeometry height="40" width="760" x="20" y="730" as="geometry" />
         </mxCell>
+        <mxCell id="cr01-seq4" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#fff2cc;strokeColor=#d6b656;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;CR-01 变更&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;① 审核型报名提交时同样构造 RegistrationContext&lt;br&gt;② Policy.decide(ctx) 返回 PENDING&lt;br&gt;③ 年级限制只影响“直接报名”，不改变审核流程" vertex="1">
+          <mxGeometry height="110" width="370" x="20" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="cr02-seq4" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;CR-02 变更&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;① 待审核阶段不发邮件&lt;br&gt;② 仅批准/拒绝后由 EmailNotificationObserver 发邮件&lt;br&gt;③ 邮件失败写 EmailLog，不影响报名状态" vertex="1">
+          <mxGeometry height="110" width="380" x="400" y="780" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="8n0edx09-jmzg" name="05 审批时序">
-    <mxGraphModel dx="1443" dy="688" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1218" dy="831" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -494,6 +544,12 @@
         </mxCell>
         <mxCell id="290" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" value="说明：批准前必须重新确认状态为 PENDING 并复查容量；满员时批准失败、状态保持 PENDING。拒绝分支：updateStatus(REJECTED) → publish(Rejected) → 站内通知，不检查容量。" vertex="1">
           <mxGeometry height="45" width="760" x="20" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="cr02-seq5" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;CR-02 变更&lt;/b&gt; &lt;font color=&quot;#38761d&quot;&gt;[NEW]&lt;/font&gt;&lt;br&gt;① 批准 → APPROVED 事件 → 邮件&lt;br&gt;② 拒绝 → REJECTED 事件 → 邮件&lt;br&gt;③ 邮件失败只记 EmailLog(FAILED)，不回滚审批&lt;br&gt;④ 同一报名同一结果只发一次" vertex="1">
+          <mxGeometry height="120" width="490" x="20" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="cr01-seq5" parent="1" style="text;align=left;verticalAlign=top;fontSize=8;fillColor=#fff2cc;strokeColor=#d6b656;whiteSpace=wrap;html=1;spacingLeft=8;spacingRight=8;" value="&lt;b&gt;CR-01 说明&lt;/b&gt; &lt;font color=&quot;#b45f06&quot;&gt;[CHG]&lt;/font&gt;&lt;br&gt;年级限制只作用于“直接报名”；&lt;br&gt;审批主流程不增加年级判断，&lt;br&gt;避免范围蔓延。" vertex="1">
+          <mxGeometry height="120" width="260" x="530" y="710" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

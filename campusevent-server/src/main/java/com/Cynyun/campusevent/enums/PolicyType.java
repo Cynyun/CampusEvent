@@ -2,5 +2,6 @@ package com.Cynyun.campusevent.enums;
 
 public enum PolicyType {
     DIRECT,
-    APPROVAL
+    APPROVAL,
+    GRADE_LIMITED_DIRECT
 }

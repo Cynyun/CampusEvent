@@ -1,6 +1,6 @@
 # CampusEvent UML 类图（设计 V1）
 
-**阶段**：初始版本设计，对应 `baseline-v1`  
+**阶段**：设计 V1 基线 + change-v2 CR 标注（绿色=新增、黄色=修改；V1 快照见 `baseline-v1`）  
 **语言风格**：语言中立 UML；Java 实现时可按此映射  
 **图形版本**：[类图](diagrams/class-diagram.drawio.svg)（draw.io 源文件见 `diagrams/CampusEvent-design.drawio`）
 
@@ -198,4 +198,6 @@ classDiagram
 
 - 本图聚焦领域对象、策略与通知协作；`ActivityRepository`、`RegistrationRepository`、`StudentRepository`、`MessageRepository` 作为持久化端口在实现阶段补充，图面以 note 标注。
 - 未引入消息队列、分布式事务、复杂权限；与实验二“无须引入消息队列”的边界一致。
-- 变更版类图将在教师发布 CR 后单独生成，不在本文件预写。
+- 变更版类图已在 change-v2 中叠加 CR 标注：绿色=新增、黄色=修改，`[NEW]`/`[CHG]` 为文字标记；V1 结构见 `baseline-v1`。
+- 主要变更点：`Student.grade`；`PolicyType.GRADE_LIMITED_DIRECT`；`RegistrationPolicy.decide(RegistrationContext)`；`RegistrationService.studentMapper`；新增 `RegistrationContext`、`GradeLimitedDirectRegistrationPolicy`、`EmailNotificationObserver`、`EmailSender`、`MockEmailSender`、`EmailMessage`、`EmailLog`、`EmailLogMapper`、`SchemaMigration`。
+- 本文件 Mermaid 仍描述 V1；change-v2 以本页 SVG 与 draw.io 第 2 页“CR-01 / CR-02 变更区”为准。

@@ -12,11 +12,11 @@
 | 数据库 | 默认 SQLite campusevent.db；可选 MySQL 8，库名 campusevent |
 | 静态资源 | campusevent-web/dist 已复制到后端 src/main/resources/static |
 | 首次启动 | 自动建表，并写入 8 个活动、36 个学生、116 条报名与通知 |
-| 设计文档 | 已完成并随 baseline-v1 封存，入口 [设计文档索引](docs/design/README.md) |
-| 验收 | C1—C10 全部通过；自动化证据见 [回归测试表](docs/回归测试表.md) 与 [验收记录](docs/验收记录.md) |
-| 自动化测试 | 15 项全部通过：C1—C10 验收 10 项、真实重启 1 项、策略单测 3 项、密码单测 1 项；前端生产构建通过 |
+| 设计文档 | baseline-v1 设计已封存；change-v2 的 CR 标注、类图与时序图已同步，入口 [设计文档索引](docs/design/README.md) |
+| 验收 | C1—C10 与 CR1/CR2 全部通过；自动化证据见 [回归测试表](docs/回归测试表.md) 与 [验收记录](docs/验收记录.md) |
+| 自动化测试 | 24 项全部通过：C1—C10 与 CR1/CR2 验收 12 项、邮件失败 1 项、真实重启 1 项、策略单测 9 项、密码单测 1 项；前端生产构建通过 |
 | 部署 | 已部署到 Vibe Hosting：https://cynyun-campus.thevibehosting.com/ |
-| 基线 | baseline-v1（2026-11-23）；教师 CR 尚未发布，change-v2 未开始 |
+| 基线 | baseline-v1（2026-11-23）保留；change-v2（2026-11-26）实现 CR-01/CR-02，待提交、部署与打标签 |
 
 ## 功能范围
 
@@ -25,13 +25,13 @@
 | P2-F01 | 活动 CRUD | 管理员创建、编辑、软删除活动；删除后历史报名与通知保留 |
 | P2-F02 | 浏览与筛选 | 学生按名称、报名方式筛选活动，查看名额与状态 |
 | P2-F03 | 报名 / 取消 | 学生报名、取消；同一活动只保留一条有效报名 |
-| P2-F04 | 两种报名方式 | 直接报名立即通过；审核制报名进入待审核 |
+| P2-F04 | 两种报名方式 | 直接报名立即通过；审核制报名进入待审核；直接报名可加年级限定（CR-01） |
 | P2-F05 | 审批 | 管理员通过 / 拒绝；通过前复查容量 |
 | P2-F06 | 四种状态 | PENDING、APPROVED、REJECTED、CANCELLED |
-| P2-F07 | 站内通知 | 报名提交、通过、拒绝、取消后写入站内消息 |
+| P2-F07 | 站内通知与模拟邮件 | 报名提交、通过、拒绝、取消后写入站内消息；CR-02 追加模拟邮件日志 |
 | P2-F08 | 活动统计 | 已通过人数、待审核数、剩余名额、使用率 |
 
-明确不做：用户注册、找回密码、复杂权限、多人协作、邮件 / 短信、复杂日历、移动端 App、消息队列、分布式事务。登录保留 student / admin 两个固定演示账号。
+明确不做：用户注册、找回密码、复杂权限、多人协作、真实邮件 / 短信服务、复杂日历、移动端 App、消息队列、分布式事务。邮件只做模拟发送并写入 email_log，不接 SMTP。登录保留 student / admin 两个固定演示账号。
 
 ## 技术栈
 
@@ -47,13 +47,15 @@
 浏览器（Vue 3 + Element Plus，static 由 Spring Boot 提供）
   → Spring MVC Controller（/api）
   → Service（事务边界）
-  → RegistrationPolicy（DIRECT / APPROVAL）
+  → RegistrationPolicy（DIRECT / APPROVAL / GRADE_LIMITED_DIRECT）
   → MyBatis Mapper
   → SQLite（默认）或 MySQL（可选）
-      student / admin / activity / registration / message / app_meta
+      student / admin / activity / registration / message / email_log / app_meta
 ~~~
 
 - 待审核不占名额；只有 APPROVED 计入已通过人数与剩余名额。
+- 年级限定直接报名仅允许 grade 为 2 或 3 的学生；年级为空或越界返回 403，满员返回 409。
+- 邮件通知由独立观察者写入 email_log；模拟失败只记 FAILED，不回滚报名。
 - 同一学生同一活动只能有一条有效报名（PENDING / APPROVED）；已取消或已拒绝可重新报名。
 - 审批通过前重新统计容量；满员时返回 409，报名保持 PENDING。
 - MySQL 下报名 / 审批在事务内对活动行执行 SELECT ... FOR UPDATE；SQLite 不支持该语法，使用单连接池串行化写入。
@@ -73,19 +75,21 @@ CampusEvent/
   docs/
     design/                 设计文档与 UML 图
     screenshots/            01—09 运行截图
-    初始SRS分析.md          初始需求基线（P2-F01—F08、BR、C1—C10）
+    初始SRS分析.md          初始需求基线（P2-F01—F08、BR、C1—C10，冻结于 baseline-v1）
+    变更影响分析.md         CR-01/CR-02 影响范围、兼容性与实施后记
     设计模式决策报告.md      策略/观察者选型、备选方案、代价与验证
-    回归测试表.md            15 项测试与 C1—C10 对照
+    回归测试表.md            24 项测试与 C1—C10、CR1/CR2 对照
     验收记录.md             C1—C10 手工验收结果
   campusevent-server/       Spring Boot 后端
     src/main/java/com/Cynyun/campusevent/
       auth/                 登录、会话、角色拦截器
       controller/           学生端 / 管理员端接口、SPA 回退
       service/              活动、报名、消息业务
-      policy/               直接报名 / 审核报名策略
-      event/                报名事件与站内通知观察者
-      mapper/               MyBatis Mapper 接口
-      config/               数据库方言、首次数据初始化
+      policy/               直接报名 / 审核报名 / 年级限定策略与上下文
+      event/                报名事件发布与站内通知观察者
+      mail/                 模拟邮件观察者、发送器与邮件日志
+      mapper/               MyBatis Mapper 接口（含邮件日志）
+      config/               数据库方言、首次数据初始化、grade 迁移
       entity/ dto/ enums/   实体、请求体、枚举
     src/main/resources/
       application.yml       公共配置，默认 profile=sqlite
@@ -95,7 +99,7 @@ CampusEvent/
       schema-mysql.sql      MySQL 表结构
       static/               前端生产构建产物（由脚本生成）
       mapper/               MyBatis XML
-    src/test/               C1—C10 验收、真实重启、策略与密码测试（15 项）
+    src/test/               C1—C10 与 CR 验收、真实重启、策略、邮件失败与密码测试（24 项）
   campusevent-web/          Vue 3 前端源码
     src/api/                 axios 接口封装
     src/views/               9 个页面
@@ -212,11 +216,12 @@ MySQL 连接参数可用环境变量覆盖：
 | 学生 | student | 123456 | /activities |
 | 管理员 | admin | 123456 | /admin/activities |
 | 学生（批量） | student01—student36 | 123456 | /activities |
+| 年级样例 | student（grade=2）、student01—student04（grade=1—4） | 123456 | /activities |
 
 首次启动（数据库为空）时写入：
 
 - 8 个未来活动：志愿服务、学术讲座、文体活动、创新创业等，直接报名与审核制混合；
-- 36 个学生账号 student01—student36，姓名“演示学生01”—“演示学生36”；
+- 36 个学生账号 student01—student36，姓名“演示学生01”—“演示学生36”，并补齐 grade 字段（student01—04 为 1—4，其余循环）；
 - 116 条报名记录：部分 APPROVED、部分 PENDING，覆盖审核通过 / 待审核 / 容量占用等场景；
 - 116 条站内通知，用于演示消息中心与未读数。
 
@@ -271,14 +276,14 @@ Spring Boot 的 SpaController 对上述前端路径回退到 index.html，刷新
 
 ## 测试与验收
 
-自动化测试（15 项）：
+自动化测试（24 项）：
 
 ~~~powershell
 cd D:/SE/CampusEvent/campusevent-server
 mvn test
 ~~~
 
-覆盖内容：CampusEventAcceptanceTest 的 C1—C10 共 10 项；CampusEventRestartTest 真实重启 1 项；RegistrationPolicyTest 3 项；PasswordUtilTest 1 项。逐条说明见 [回归测试表](docs/回归测试表.md)。
+覆盖内容：CampusEventAcceptanceTest 12 项（C1—C10 + CR1 年级限定 + CR2 邮件日志幂等）；CampusEventRestartTest 真实重启 1 项；CampusEventEmailFailureTest 邮件失败 1 项；RegistrationPolicyTest 9 项；PasswordUtilTest 1 项。逐条说明见 [回归测试表](docs/回归测试表.md)。
 
 前端生产构建：
 
@@ -287,7 +292,7 @@ cd D:/SE/CampusEvent/campusevent-web
 npm run build
 ~~~
 
-C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收记录.md)；自动化方法名、断言与命令见 [回归测试表](docs/回归测试表.md)。C10 的“重启后数据保持”在 SQLite 默认模式下同样成立：数据库是启动目录下的单文件，重启只重新建表（IF NOT EXISTS），不会清空数据。
+C1—C10 与 CR1/CR2 的验收步骤、实际结果与证据见 [验收记录](docs/验收记录.md)；自动化方法名、断言与命令见 [回归测试表](docs/回归测试表.md)。C10 的“重启后数据保持”在 SQLite 默认模式下同样成立：数据库是启动目录下的单文件，重启只重新建表（IF NOT EXISTS），不会清空数据。
 
 ## 运行截图
 
@@ -309,6 +314,7 @@ C1—C10 的验收步骤、实际结果与证据见 [验收记录](docs/验收�
 
 - [初始 SRS 分析](docs/初始SRS分析.md)
 - [设计模式决策报告](docs/设计模式决策报告.md)
+- [变更影响分析](docs/变更影响分析.md)
 - [回归测试表](docs/回归测试表.md)
 - [AI 开发日志](AI_DEV_LOG.md)
 - docs/design/README.md
@@ -355,8 +361,9 @@ curl.exe -i -X POST "https://cynyun-campus.thevibehosting.com/api/auth/login" -H
 - SQLite 模式为单连接池，适合课程演示与单机使用；高并发写入应切换 MySQL。
 - 活动列表未分页；数据量大时需补充分页与索引优化。
 - 站内通知为同步写入，未引入消息队列；通知失败不会重试，也没有幂等键。重试被状态机挡住，但 afterCommit 崩溃窗口仍可能丢通知（U2）。
+- 模拟邮件同样在报名事务提交后发送；失败只写 email_log FAILED，不重试、不回滚报名，真实 SMTP 与退信处理未实现。
 - 活动软删除只支持删除与查看已删除，未实现“恢复活动”端点。
-- C1—C10 只在 SQLite 上跑自动化；MySQL 仅做启动与基本接口验证，未做 MySQL 全量回归与高并发压测。
+- C1—C10 与 CR1/CR2 只在 SQLite 上跑自动化；MySQL 仅做启动与基本接口验证，未做 MySQL 全量回归与高并发压测。
 - 前端没有 Playwright/Cypress 自动化，页面验收依赖手工冒烟与截图。
 - 公网环境使用单机 SQLite 与按需休眠，未实现生产级备份、监控、限流与多实例容灾。
 - 示例密码 123456 仅用于课程演示，公网地址已公开，不应存放真实用户数据。

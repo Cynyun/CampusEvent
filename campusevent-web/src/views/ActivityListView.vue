@@ -96,6 +96,7 @@ onMounted(load)
         />
         <el-select v-model="filters.policyType" placeholder="全部报名方式" clearable style="width: 170px" @change="load">
           <el-option label="直接报名" value="DIRECT" />
+          <el-option label="年级限定" value="GRADE_LIMITED_DIRECT" />
           <el-option label="审核制" value="APPROVAL" />
         </el-select>
         <el-button type="primary" @click="load">筛选</el-button>

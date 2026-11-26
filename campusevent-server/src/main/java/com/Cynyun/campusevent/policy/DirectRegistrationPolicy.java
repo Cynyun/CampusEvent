@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class DirectRegistrationPolicy implements RegistrationPolicy {
 
     @Override
-    public RegistrationStatus decide(int approvedCount, int capacity) {
-        if (approvedCount >= capacity) {
+    public RegistrationStatus decide(RegistrationContext context) {
+        if (context.approvedCount() >= context.activity().getCapacity()) {
             throw BusinessException.conflict("活动名额已满");
         }
         return RegistrationStatus.APPROVED;

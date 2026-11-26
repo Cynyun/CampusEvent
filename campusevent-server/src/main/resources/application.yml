@@ -53,3 +53,6 @@ knife4j:
 app:
   # 只在数据库为空且首次运行时写入演示活动/学生/报名；已有数据不会重复写入
   seed-demo-data: ${CAMPUSEVENT_SEED_DEMO:true}
+  mock-email:
+    # 仅用于验收 CR2-03：置 true 时模拟邮件失败，不影响报名
+    fail: ${CAMPUSEVENT_MOCK_EMAIL_FAIL:false}

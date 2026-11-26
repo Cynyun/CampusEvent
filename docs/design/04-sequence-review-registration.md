@@ -1,6 +1,6 @@
 # 时序图：审核型报名（UC-05）
 
-**阶段**：初始版本设计，对应 `baseline-v1`  
+**阶段**：设计 V1 基线 + change-v2 CR 标注（绿色=新增、黄色=修改；V1 快照见 `baseline-v1`）  
 **图形版本**：[审核型报名时序图](diagrams/sequence-review.drawio.svg)（draw.io 源文件见 `diagrams/CampusEvent-design.drawio`）
 
 ```mermaid
@@ -47,3 +47,10 @@ sequenceDiagram
 - 审核型报名提交时**不扣减名额**，待审核不占容量。
 - 活动已满员时仍允许提交待审核申请；审批时再检查容量（UC-07）。
 - 有效报名指状态为“待审核”或“已通过”；已取消/已拒绝允许再次申请。
+
+## change-v2 图示变更点
+
+- **CR-01**：审核型报名提交时同样构造 `RegistrationContext`；`ApprovalRegistrationPolicy` 返回 `PENDING`；年级限制只作用于直接报名。
+- **CR-02**：待审核阶段不发邮件；批准/拒绝后由 `EmailNotificationObserver` 发邮件。
+- 图示保留 V1 主流程，底部加变更说明，不重画整图。
+- 本文件 Mermaid 仍为 V1 主流程；change-v2 以 SVG 底部“CR-01/CR-02 变更”说明为准。

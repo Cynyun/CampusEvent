@@ -5,12 +5,15 @@ import com.Cynyun.campusevent.common.TransactionHooks;
 import com.Cynyun.campusevent.entity.Activity;
 import com.Cynyun.campusevent.entity.Registration;
 import com.Cynyun.campusevent.entity.RegistrationView;
+import com.Cynyun.campusevent.entity.Student;
 import com.Cynyun.campusevent.enums.RegistrationEventType;
 import com.Cynyun.campusevent.enums.RegistrationStatus;
 import com.Cynyun.campusevent.event.RegistrationEvent;
 import com.Cynyun.campusevent.event.RegistrationEventPublisher;
 import com.Cynyun.campusevent.mapper.ActivityMapper;
 import com.Cynyun.campusevent.mapper.RegistrationMapper;
+import com.Cynyun.campusevent.mapper.StudentMapper;
+import com.Cynyun.campusevent.policy.RegistrationContext;
 import com.Cynyun.campusevent.policy.RegistrationPolicy;
 import com.Cynyun.campusevent.policy.RegistrationPolicyFactory;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,7 @@ public class RegistrationService {
 
     private final ActivityMapper activityMapper;
     private final RegistrationMapper registrationMapper;
+    private final StudentMapper studentMapper;
     private final RegistrationPolicyFactory policyFactory;
     private final RegistrationEventPublisher eventPublisher;
 
@@ -43,9 +47,15 @@ public class RegistrationService {
             throw BusinessException.conflict("你已报名该活动，请勿重复提交");
         }
 
+        Student student = studentMapper.findByStudentId(studentId);
+        if (student == null) {
+            throw BusinessException.forbidden("学生信息不存在，请重新登录");
+        }
+
         int approvedCount = activityMapper.countApproved(activityId);
         RegistrationPolicy policy = policyFactory.create(activity.getPolicyType());
-        RegistrationStatus status = policy.decide(approvedCount, activity.getCapacity());
+        RegistrationStatus status = policy.decide(
+                new RegistrationContext(student, activity, approvedCount));
 
         Registration registration = new Registration();
         registration.setStudentId(studentId);

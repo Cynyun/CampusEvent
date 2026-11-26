@@ -94,11 +94,13 @@ class CampusEventAcceptanceTest {
         for (int i = 2; i <= 4; i++) {
             String id = String.format("student%02d", i);
             jdbcTemplate.update(
-                    "INSERT INTO student (student_id, name, password_hash) " +
-                            "SELECT ?, ?, ? WHERE NOT EXISTS " +
+                    "INSERT INTO student (student_id, name, grade, password_hash) " +
+                            "SELECT ?, ?, ?, ? WHERE NOT EXISTS " +
                             "(SELECT 1 FROM student WHERE student_id = ?)",
-                    id, "验收学生" + i, DEMO_PASSWORD_HASH, id);
+                    id, "验收学生" + i, i, DEMO_PASSWORD_HASH, id);
         }
+        // student01 使用演示账号 student；CR1 需要大一学生。
+        jdbcTemplate.update("UPDATE student SET grade = 1 WHERE student_id = 'student'");
     }
 
     @BeforeEach
@@ -285,6 +287,96 @@ class CampusEventAcceptanceTest {
                     + count(statement, "SELECT COUNT(*) FROM message WHERE content LIKE '报名已提交%'");
             assertEquals(11, notificationCount, "通知应全部持久化（直接报名 2 + 审核提交 4 + 审批/拒绝 2 + 取消 2 + 通过 1）");
         }
+    }
+
+    @Test
+    @Order(11)
+    void cr1GradeLimitedDirectRegistrationAllowsOnlySophomoresAndJuniors() throws Exception {
+        long activityId = createActivity("CR1 年级限定活动", "GRADE_LIMITED_DIRECT", 5);
+
+        mockMvc.perform(post("/api/student/activities/{id}/registrations", activityId)
+                        .session(student01Session))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message").value("该活动仅限大二、大三学生报名"));
+
+        mockMvc.perform(post("/api/student/activities/{id}/registrations", activityId)
+                        .session(student02Session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status").value("APPROVED"));
+
+        mockMvc.perform(post("/api/student/activities/{id}/registrations", activityId)
+                        .session(student03Session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status").value("APPROVED"));
+
+        mockMvc.perform(post("/api/student/activities/{id}/registrations", activityId)
+                        .session(student04Session))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message").value("该活动仅限大二、大三学生报名"));
+    }
+
+    @Test
+    @Order(12)
+    void cr2EmailLogsAreWrittenAndDuplicateActionsDoNotRepeatThem() throws Exception {
+        long directId = createActivity("CR2 直接报名邮件", "DIRECT", 5);
+        MvcResult directResult = mockMvc.perform(post("/api/student/activities/{id}/registrations", directId)
+                        .session(student01Session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status").value("APPROVED"))
+                .andReturn();
+        long directRegistrationId = dataId(directResult);
+        assertEquals(1, emailCount(directRegistrationId));
+        assertEquals("SENT", emailStatus(directRegistrationId));
+
+        mockMvc.perform(post("/api/student/activities/{id}/registrations", directId)
+                        .session(student01Session))
+                .andExpect(status().isConflict());
+        assertEquals(1, emailCount(directRegistrationId), "重复报名不能重复发邮件");
+
+        long approvalId = createActivity("CR2 审核邮件", "APPROVAL", 5);
+        MvcResult pendingResult = mockMvc.perform(post("/api/student/activities/{id}/registrations", approvalId)
+                        .session(student02Session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status").value("PENDING"))
+                .andReturn();
+        long pendingRegistrationId = dataId(pendingResult);
+        assertEquals(0, emailCount(pendingRegistrationId), "待审核不发邮件");
+
+        mockMvc.perform(post("/api/admin/registrations/{id}/approve", pendingRegistrationId)
+                        .session(adminSession))
+                .andExpect(status().isOk());
+        assertEquals(1, emailCount(pendingRegistrationId));
+        assertEquals("APPROVED", emailEventType(pendingRegistrationId));
+
+        MvcResult rejectResult = mockMvc.perform(post("/api/student/activities/{id}/registrations", approvalId)
+                        .session(student03Session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status").value("PENDING"))
+                .andReturn();
+        long rejectRegistrationId = dataId(rejectResult);
+        mockMvc.perform(post("/api/admin/registrations/{id}/reject", rejectRegistrationId)
+                        .session(adminSession))
+                .andExpect(status().isOk());
+        assertEquals(1, emailCount(rejectRegistrationId));
+        assertEquals("REJECTED", emailEventType(rejectRegistrationId));
+    }
+
+    private int emailCount(long registrationId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM email_log WHERE registration_id = ?", Integer.class, registrationId);
+        return count == null ? 0 : count;
+    }
+
+    private String emailStatus(long registrationId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT status FROM email_log WHERE registration_id = ? ORDER BY id DESC LIMIT 1",
+                String.class, registrationId);
+    }
+
+    private String emailEventType(long registrationId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT event_type FROM email_log WHERE registration_id = ? ORDER BY id DESC LIMIT 1",
+                String.class, registrationId);
     }
 
     private MockHttpSession login(String username) throws Exception {

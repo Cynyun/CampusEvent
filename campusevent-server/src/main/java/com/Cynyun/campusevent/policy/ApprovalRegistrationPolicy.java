@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class ApprovalRegistrationPolicy implements RegistrationPolicy {
 
     @Override
-    public RegistrationStatus decide(int approvedCount, int capacity) {
+    public RegistrationStatus decide(RegistrationContext context) {
         return RegistrationStatus.PENDING;
     }
 }

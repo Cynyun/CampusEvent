@@ -124,10 +124,15 @@ onMounted(load)
       <el-form-item label="报名方式" prop="policyType">
         <el-radio-group v-model="form.policyType">
           <el-radio-button value="DIRECT">直接报名</el-radio-button>
+          <el-radio-button value="GRADE_LIMITED_DIRECT">年级限定</el-radio-button>
           <el-radio-button value="APPROVAL">审核制</el-radio-button>
         </el-radio-group>
         <div class="form-hint">
-          {{ form.policyType === 'APPROVAL' ? '学生提交后进入待审核，管理员通过后才占用名额。' : '学生提交后立即通过，名额满时无法提交。' }}
+          {{ form.policyType === 'APPROVAL'
+            ? '学生提交后进入待审核，管理员通过后才占用名额。'
+            : form.policyType === 'GRADE_LIMITED_DIRECT'
+              ? '仅大二、大三学生可直接报名；提交后立即通过并占用名额，其他年级会被拒绝。'
+              : '学生提交后立即通过，名额满时无法提交。' }}
         </div>
       </el-form-item>
       <div class="form-actions">

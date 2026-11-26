@@ -3,6 +3,7 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS student (
     student_id    TEXT NOT NULL,
     name          TEXT NOT NULL,
+    grade         INTEGER NULL,
     password_hash TEXT NOT NULL,
     PRIMARY KEY (student_id)
 );
@@ -56,6 +57,20 @@ CREATE TABLE IF NOT EXISTS message (
 );
 
 CREATE INDEX IF NOT EXISTS idx_message_student_read ON message (student_id, is_read);
+
+CREATE TABLE IF NOT EXISTS email_log (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    registration_id INTEGER NOT NULL,
+    event_type      TEXT    NOT NULL,
+    recipient       TEXT    NOT NULL,
+    subject         TEXT    NOT NULL,
+    content         TEXT    NOT NULL,
+    status          TEXT    NOT NULL,
+    error_message   TEXT    NULL,
+    created_at      TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_email_log_registration ON email_log (registration_id);
 
 CREATE TABLE IF NOT EXISTS app_meta (
     meta_key   TEXT NOT NULL,

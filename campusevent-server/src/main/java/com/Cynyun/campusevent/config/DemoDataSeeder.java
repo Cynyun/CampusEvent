@@ -46,6 +46,7 @@ public class DemoDataSeeder implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         ensureAccount("student", "演示学生", DEMO_PASSWORD_HASH, true);
         ensureAccount("admin", "系统管理员", DEMO_PASSWORD_HASH, false);
+        ensureDemoGrades();
 
         if (!seedDemoData) {
             log.info("演示数据初始化已关闭（app.seed-demo-data=false），仅确保演示账号存在");
@@ -66,6 +67,7 @@ public class DemoDataSeeder implements ApplicationRunner {
 
         List<Long> activityIds = seedActivities();
         int studentCount = seedStudents();
+        ensureDemoGrades();
         int registrationCount = seedRegistrations(activityIds);
         markSeeded("v1");
 
@@ -81,6 +83,30 @@ public class DemoDataSeeder implements ApplicationRunner {
                         "SELECT ?, ?, ? WHERE NOT EXISTS " +
                         "(SELECT 1 FROM " + table + " WHERE " + idColumn + " = ?)",
                 id, name, hash, id);
+    }
+
+    /**
+     * 只为演示账号补年级；已有非空 grade 不覆盖，避免覆盖真实数据。
+     * student 固定为 2（大二）；student01—student04 分别 1—4，其余按 1—4 循环。
+     */
+    private void ensureDemoGrades() {
+        setGradeIfNull("student", 2);
+        for (int i = 1; i <= STUDENT_COUNT; i++) {
+            setGradeIfNull(String.format("student%02d", i), gradeForStudent(i));
+        }
+    }
+
+    private void setGradeIfNull(String studentId, int grade) {
+        jdbcTemplate.update(
+                "UPDATE student SET grade = ? WHERE student_id = ? AND grade IS NULL",
+                grade, studentId);
+    }
+
+    private int gradeForStudent(int index) {
+        if (index <= 4) {
+            return index;
+        }
+        return ((index - 1) % 4) + 1;
     }
 
     private boolean hasSeedMarker() {
